@@ -1,13 +1,13 @@
+import 'package:dartboard/dartboard.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/main_drawer.dart';
 
-class PrivacyPolicyPage extends StatelessWidget {
-  static const String route = '/privacy_policy';
-
-  PrivacyPolicyPage({Key key, this.title}) : super(key: key);
+class PrivacyPolicyPage extends StatelessWidget implements MainPage {
+  PrivacyPolicyPage({Key key, this.title, this.menuItem}) : super(key: key);
 
   final String title;
+  final ListTile menuItem;
 
   @override
   Widget build(BuildContext context) {

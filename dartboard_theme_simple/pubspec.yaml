@@ -11,7 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  font_awesome_flutter: ^8.8.1
+  dartboard:
+    path: ../dartboard
+
 
 dev_dependencies:
   flutter_test:

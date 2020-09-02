@@ -1,12 +1,5 @@
+import 'package:dartboard/dartboard.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../about_page.dart';
-import '../blog_page.dart';
-import '../contact_page.dart';
-import '../docs_page.dart';
-import '../home_page.dart';
-import '../privacy_policy_page.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -26,55 +19,54 @@ class MainDrawer extends StatelessWidget {
               backgroundColor: Colors.white,
             ),
           ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.home),
-            title: Text('Home'),
-            onTap: () {
-              Navigator.popUntil(context, ModalRoute.withName(HomePage.route));
-            },
-          ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.folderOpen),
-            title: Text('Docs'),
-            onTap: () {
-              Navigator.popUntil(context, ModalRoute.withName(HomePage.route));
-              Navigator.pushNamed(context, DocsPage.route);
-            },
-          ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.blog),
-            title: Text('Blog'),
-            onTap: () {
-              Navigator.popUntil(context, ModalRoute.withName(HomePage.route));
-              Navigator.pushNamed(context, BlogPage.route);
-            },
-          ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.addressCard),
-            title: Text('About'),
-            onTap: () {
-              Navigator.popUntil(context, ModalRoute.withName(HomePage.route));
-              Navigator.pushNamed(context, AboutPage.route);
-            },
-          ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.envelope),
-            title: Text('Contact'),
-            onTap: () {
-              Navigator.popUntil(context, ModalRoute.withName(HomePage.route));
-              Navigator.pushNamed(context, ContactPage.route);
-            },
-          ),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.userShield),
-            title: Text('Privacy Policy'),
-            onTap: () {
-              Navigator.popUntil(context, ModalRoute.withName(HomePage.route));
-              Navigator.pushNamed(context, PrivacyPolicyPage.route);
-            },
-          ),
+          ..._getMenuItems(context),
         ],
       ),
     );
+  }
+
+  List<Widget> _getMenuItems(BuildContext context) {
+    var menuItems = <Widget>[];
+    var materialApp = context.findAncestorWidgetOfExactType<MaterialApp>();
+    materialApp.routes.forEach((k, v) {
+      if (v != null) {
+        Object page = v(context);
+        if (page != null && page is MainPage) {
+          if (page.menuItem != null && page.menuItem is ListTile) {
+            ListTile listTile = page.menuItem;
+            menuItems.add(ListTile(
+              leading: listTile.leading,
+              title: listTile.title,
+              subtitle: listTile.subtitle,
+              trailing: listTile.trailing,
+              isThreeLine: listTile.isThreeLine,
+              dense: listTile.dense,
+              visualDensity: listTile.visualDensity,
+              shape: listTile.shape,
+              contentPadding: listTile.contentPadding,
+              enabled: listTile.enabled,
+              onTap: listTile.onTap ??
+                  () {
+                    Navigator.popUntil(
+                        context, ModalRoute.withName(materialApp.initialRoute));
+                    if (k != materialApp.initialRoute) {
+                      Navigator.pushNamed(context, k);
+                    }
+                  },
+              onLongPress: listTile.onLongPress,
+              mouseCursor: listTile.mouseCursor,
+              selected: listTile.selected,
+              focusColor: listTile.focusColor,
+              hoverColor: listTile.hoverColor,
+              focusNode: listTile.focusNode,
+              autofocus: listTile.autofocus,
+              tileColor: listTile.tileColor,
+              selectedTileColor: listTile.selectedTileColor,
+            ));
+          }
+        }
+      }
+    });
+    return menuItems;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:dartboard_theme_simple/dartboard_theme_simple.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,15 +10,50 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: HomePage.route,
+      initialRoute: '/',
       routes: {
-        HomePage.route: (context) => HomePage(title: 'Home'),
-        DocsPage.route: (context) => DocsPage(title: 'Documents'),
-        BlogPage.route: (context) => BlogPage(title: 'Blog'),
-        AboutPage.route: (context) => AboutPage(title: 'About'),
-        ContactPage.route: (context) => ContactPage(title: 'Contact'),
-        PrivacyPolicyPage.route: (context) =>
-            PrivacyPolicyPage(title: 'Privacy Policy'),
+        '/': (context) => HomePage(
+              title: 'Home',
+              menuItem: ListTile(
+                leading: FaIcon(FontAwesomeIcons.home),
+                title: Text('Home'),
+              ),
+            ),
+        '/docs': (context) => DocsPage(
+              title: 'Documents',
+              menuItem: ListTile(
+                leading: FaIcon(FontAwesomeIcons.folderOpen),
+                title: Text('Docs'),
+              ),
+            ),
+        '/blog': (context) => BlogPage(
+              title: 'Blog',
+              menuItem: ListTile(
+                leading: FaIcon(FontAwesomeIcons.blog),
+                title: Text('Blog'),
+              ),
+            ),
+        '/about': (context) => AboutPage(
+              title: 'About',
+              menuItem: ListTile(
+                leading: FaIcon(FontAwesomeIcons.addressCard),
+                title: Text('About'),
+              ),
+            ),
+        '/contact': (context) => ContactPage(
+              title: 'Contact',
+              menuItem: ListTile(
+                leading: FaIcon(FontAwesomeIcons.envelope),
+                title: Text('Contact'),
+              ),
+            ),
+        'privacy_policy': (context) => PrivacyPolicyPage(
+              title: 'Privacy Policy',
+              menuItem: ListTile(
+                leading: FaIcon(FontAwesomeIcons.userShield),
+                title: Text('Privacy Policy'),
+              ),
+            ),
       },
       title: 'Dartboard',
       theme: ThemeData(
