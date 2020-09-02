@@ -53,14 +53,14 @@ packages:
   dartboard:
     dependency: "direct main"
     description:
-      path: "../dartboard"
+      path: "../../dartboard"
       relative: true
     source: path
     version: "0.0.1"
   dartboard_theme_simple:
     dependency: "direct main"
     description:
-      path: "../dartboard_theme_simple"
+      path: ".."
       relative: true
     source: path
     version: "0.0.1"

@@ -24,9 +24,9 @@ dependencies:
   flutter:
     sdk: flutter
   dartboard:
-    path: ../dartboard
+    path: ../../dartboard
   dartboard_theme_simple:
-    path: ../dartboard_theme_simple
+    path: ../../dartboard_theme_simple
 
 
   # The following adds the Cupertino Icons font to your application.
