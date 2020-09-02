@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'widgets/main_drawer.dart';
 
-class AboutPage extends StatelessWidget implements MainPage {
+class AboutPage extends StatelessWidget implements ContentPage {
   AboutPage({Key key, this.title, this.menuItem}) : super(key: key);
 
   final String title;

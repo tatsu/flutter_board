@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'widgets/main_drawer.dart';
 
-class PrivacyPolicyPage extends StatelessWidget implements MainPage {
+class PrivacyPolicyPage extends StatelessWidget implements ContentPage {
   PrivacyPolicyPage({Key key, this.title, this.menuItem}) : super(key: key);
 
   final String title;

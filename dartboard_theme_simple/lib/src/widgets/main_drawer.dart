@@ -31,7 +31,7 @@ class MainDrawer extends StatelessWidget {
     materialApp.routes.forEach((k, v) {
       if (v != null) {
         Object page = v(context);
-        if (page != null && page is MainPage) {
+        if (page != null && page is ContentPage) {
           if (page.menuItem != null && page.menuItem is ListTile) {
             ListTile listTile = page.menuItem;
             menuItems.add(ListTile(

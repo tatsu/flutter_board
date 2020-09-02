@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'widgets/main_drawer.dart';
 
-class BlogPage extends StatelessWidget implements MainPage {
+class BlogPage extends StatelessWidget implements ContentPage {
   BlogPage({Key key, this.title, this.menuItem}) : super(key: key);
 
   final String title;

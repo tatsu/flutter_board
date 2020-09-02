@@ -1,5 +1,5 @@
-class MainPage {
-  MainPage({this.title, this.menuItem});
+class ContentPage {
+  ContentPage({this.title, this.menuItem});
 
   final String title;
   final Object menuItem;
