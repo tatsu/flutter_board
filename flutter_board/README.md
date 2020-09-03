@@ -1,6 +1,6 @@
-# dartboard_theme_simple
+# flutter_board
 
-A simple dartboard theme.
+A simple blog-aware document based app engine in Flutter.
 
 ## Getting Started
 

@@ -1,5 +1,5 @@
-name: dartboard
-description: A simple blog-aware document based app engine in Flutter.
+name: flutter_board_theme_simple
+description: A simple dartboard theme.
 version: 0.0.1
 author:
 homepage:
@@ -11,6 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_board:
+    path: ../flutter_board
+
 
 dev_dependencies:
   flutter_test:

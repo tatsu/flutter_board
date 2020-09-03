@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/dartboard/dartboard.iml" filepath="$PROJECT_DIR$/dartboard/dartboard.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dartboard_theme_simple/dartboard_theme_simple.iml" filepath="$PROJECT_DIR$/dartboard_theme_simple/dartboard_theme_simple.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flutter_board/flutter_board.iml" filepath="$PROJECT_DIR$/flutter_board/flutter_board.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flutter_board_theme_simple/flutter_board_theme_simple.iml" filepath="$PROJECT_DIR$/flutter_board_theme_simple/flutter_board_theme_simple.iml" />
     </modules>
   </component>
 </project>

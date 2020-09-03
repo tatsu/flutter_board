@@ -1,5 +1,5 @@
-import 'package:dartboard_theme_simple/dartboard_theme_simple.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
       },
-      title: 'Dartboard',
+      title: 'Flutter Board',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

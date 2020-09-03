@@ -1,10 +1,10 @@
-import 'package:dartboard/dartboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_board/flutter_board.dart';
 
 import 'widgets/main_drawer.dart';
 
-class ContactPage extends StatelessWidget implements ContentPage {
-  ContactPage({Key key, this.title, this.menuItem}) : super(key: key);
+class AboutPage extends StatelessWidget implements ContentPage {
+  AboutPage({Key key, this.title, this.menuItem}) : super(key: key);
 
   final String title;
   final ListTile menuItem;
