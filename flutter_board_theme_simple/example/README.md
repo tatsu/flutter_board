@@ -1,6 +1,6 @@
 # example
 
-A simple dartboard example app.
+A simple flutter_board example app.
 
 ## Getting Started
 
