@@ -1,1 +1,1 @@
-export 'src/main_page.dart';
+export 'src/content_page.dart';
