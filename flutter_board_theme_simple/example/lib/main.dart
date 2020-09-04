@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
                 title: Text('Contact'),
               ),
             ),
-        'privacy_policy': (context) => PrivacyPolicyPage(
+        '/privacy_policy': (context) => PrivacyPolicyPage(
               title: 'Privacy Policy',
               menuItem: ListTile(
                 leading: FaIcon(FontAwesomeIcons.userShield),
