@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  path: ^1.7.0
+  yaml: ^2.2.1
   flutter_board:
     path: ../flutter_board
 

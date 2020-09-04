@@ -1,0 +1,10 @@
+name: 'Flutterboard'
+description: 'A simple flutter_board example app.'
+logo: 'images/logo.png'
+
+avatar: 'images/avatar.png'
+author: 'Tatsuhiko Arai'
+email: 'tatsu@tatsu.com'
+
+# SNS
+twitter: tatarai

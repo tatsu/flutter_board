@@ -1,23 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
+import 'package:path/path.dart' as p;
+import 'package:yaml/yaml.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends StatefulWidget {
+  @override
+  _MainDrawerState createState() => _MainDrawerState();
+}
+
+class _MainDrawerState extends State<MainDrawer> {
+  Future<YamlMap> _config = Config().get();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            accountName: Text("Tatsuhiko Arai"),
-            accountEmail: Text("tatsu@tatsu.com"),
-            currentAccountPicture: CircleAvatar(
-              child: FlutterLogo(size: 42.0),
-              backgroundColor: Colors.white,
-            ),
+          FutureBuilder<YamlMap>(
+            future: _config,
+            builder: (BuildContext context, AsyncSnapshot<YamlMap> snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                var config = snapshot.data;
+                return UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                  accountName: Text(config['author'] ?? ''),
+                  accountEmail: Text(config['email'] ?? ''),
+                  currentAccountPicture: config['avatar'] != null
+                      ? CircleAvatar(
+                          backgroundImage:
+                              AssetImage(p.join('content', config['avatar'])))
+                      : CircleAvatar(
+                          child: FlutterLogo(size: 42.0),
+                          backgroundColor: Colors.white,
+                        ),
+                );
+              }
+              return UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+              );
+            },
           ),
           ..._getMenuItems(context),
         ],
