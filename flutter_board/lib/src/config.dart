@@ -2,18 +2,19 @@ import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
 
 class Config {
-  static Config _instance = Config._internal();
+  static Config _instance;
 
   YamlMap _yamlMap;
 
-  factory Config() => _instance;
-
-  Future<YamlMap> get() async {
-    if (_yamlMap == null) {
-      _yamlMap = await _load();
+  static Future<Config> get() async {
+    if (_instance == null) {
+      _instance = Config._internal();
+      _instance._yamlMap = await _instance._load();
     }
-    return _yamlMap;
+    return _instance;
   }
+
+  operator [](String key) => _yamlMap[key];
 
   Config._internal();
 

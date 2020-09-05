@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 import 'package:path/path.dart' as p;
-import 'package:yaml/yaml.dart';
 
 class MainDrawer extends StatefulWidget {
   @override
@@ -9,17 +8,15 @@ class MainDrawer extends StatefulWidget {
 }
 
 class _MainDrawerState extends State<MainDrawer> {
-  Future<YamlMap> _config = Config().get();
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          FutureBuilder<YamlMap>(
-            future: _config,
-            builder: (BuildContext context, AsyncSnapshot<YamlMap> snapshot) {
+          FutureBuilder<Config>(
+            future: Config.get(),
+            builder: (BuildContext context, AsyncSnapshot<Config> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 var config = snapshot.data;
                 return UserAccountsDrawerHeader(
