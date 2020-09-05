@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'page.dart' as page;
 
 class BlogPage extends page.Page {
-  BlogPage({Key key, String title, ListTile menuItem})
-      : super(key: key, title: title, menuItem: menuItem);
+  BlogPage({Key key}) : super(key: key);
 
   @override
   Widget buildContent(BuildContext context) {

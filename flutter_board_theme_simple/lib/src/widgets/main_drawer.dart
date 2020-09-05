@@ -35,46 +35,22 @@ class MainDrawer extends StatelessWidget {
   }
 
   List<Widget> _getMenuItems(BuildContext context) {
-    var menuItems = <Widget>[];
-    var materialApp = context.findAncestorWidgetOfExactType<MaterialApp>();
-    materialApp.routes.forEach((k, v) {
-      if (v != null) {
-        Object page = v(context);
-        if (page != null && page is ContentPage) {
-          if (page.menuItem != null && page.menuItem is ListTile) {
-            ListTile listTile = page.menuItem;
-            menuItems.add(ListTile(
-              leading: listTile.leading,
-              title: listTile.title,
-              subtitle: listTile.subtitle,
-              trailing: listTile.trailing,
-              isThreeLine: listTile.isThreeLine,
-              dense: listTile.dense,
-              visualDensity: listTile.visualDensity,
-              shape: listTile.shape,
-              contentPadding: listTile.contentPadding,
-              enabled: listTile.enabled,
-              onTap: listTile.onTap ??
-                  () {
-                    Navigator.popUntil(
-                        context, ModalRoute.withName(materialApp.initialRoute));
-                    if (k != materialApp.initialRoute) {
-                      Navigator.pushNamed(context, k, arguments: arguments);
-                    }
-                  },
-              onLongPress: listTile.onLongPress,
-              mouseCursor: listTile.mouseCursor,
-              selected: listTile.selected,
-              focusColor: listTile.focusColor,
-              hoverColor: listTile.hoverColor,
-              focusNode: listTile.focusNode,
-              autofocus: listTile.autofocus,
-              tileColor: listTile.tileColor,
-              selectedTileColor: listTile.selectedTileColor,
-            ));
+    final materialApp = context.findAncestorWidgetOfExactType<MaterialApp>();
+    final PageArguments arguments = ModalRoute.of(context).settings.arguments;
+    final menuItems = <Widget>[];
+    arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
+      final args = v.arguments as PageArguments;
+      menuItems.add(ListTile(
+        leading: args.icon,
+        title: Text(args.title),
+        onTap: () {
+          Navigator.popUntil(
+              context, ModalRoute.withName(materialApp.initialRoute));
+          if (k != materialApp.initialRoute) {
+            Navigator.pushNamed(context, k, arguments: arguments);
           }
-        }
-      }
+        },
+      ));
     });
     return menuItems;
   }

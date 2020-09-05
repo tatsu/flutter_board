@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
 
-abstract class Page extends StatelessWidget implements ContentPage {
-  Page({Key key, this.title, this.menuItem}) : super(key: key);
+abstract class Page extends StatelessWidget {
+  Page({Key key}) : super(key: key);
 
-  final String title;
-  final ListTile menuItem;
   final PageArguments _arguments = PageArguments();
 
   @override
@@ -17,7 +15,7 @@ abstract class Page extends StatelessWidget implements ContentPage {
     return arguments.config != null
         ? Scaffold(
             appBar: AppBar(
-              title: Text(title),
+              title: Text(arguments.title),
             ),
             drawer: MainDrawer(arguments: arguments),
             body: buildContent(context),
@@ -29,7 +27,7 @@ abstract class Page extends StatelessWidget implements ContentPage {
                 arguments.config = snapshot.data;
                 return Scaffold(
                   appBar: AppBar(
-                    title: Text(title),
+                    title: Text(arguments.title),
                   ),
                   drawer: MainDrawer(arguments: arguments),
                   body: buildContent(context),
@@ -37,7 +35,7 @@ abstract class Page extends StatelessWidget implements ContentPage {
               }
               return Scaffold(
                 appBar: AppBar(
-                  title: Text(title),
+                  title: Text(arguments.title),
                 ),
                 body: Center(
                   child: Image.asset(

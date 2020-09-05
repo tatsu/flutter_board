@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_board/flutter_board.dart';
 import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -7,53 +8,64 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final routeGenerator = RouteGenerator();
+
   @override
   Widget build(BuildContext context) {
+    routeGenerator.builderSettingsMap = {
+      '/': RouteBuilderSettings(
+          (context) => HomePage(),
+          PageArguments(
+            title: 'Home',
+            icon: FaIcon(FontAwesomeIcons.home),
+            routeGenerator: routeGenerator,
+          )),
+      '/docs': RouteBuilderSettings(
+          (context) => DocsPage(),
+          PageArguments(
+            title: 'Documents',
+            icon: FaIcon(FontAwesomeIcons.folderOpen),
+            routeGenerator: routeGenerator,
+          )),
+      '/blog': RouteBuilderSettings(
+          (context) => BlogPage(),
+          PageArguments(
+            title: 'Blog',
+            icon: FaIcon(FontAwesomeIcons.blog),
+            routeGenerator: routeGenerator,
+          )),
+      '/about': RouteBuilderSettings(
+          (context) => AboutPage(),
+          PageArguments(
+            title: 'About',
+            icon: FaIcon(FontAwesomeIcons.addressCard),
+            routeGenerator: routeGenerator,
+          )),
+      '/contact': RouteBuilderSettings(
+          (context) => ContactPage(),
+          PageArguments(
+            title: 'Contact',
+            icon: FaIcon(FontAwesomeIcons.envelope),
+            routeGenerator: routeGenerator,
+          )),
+      '/privacy_policy': RouteBuilderSettings(
+          (context) => PrivacyPolicyPage(),
+          PageArguments(
+            title: 'Privacy Policy',
+            icon: FaIcon(FontAwesomeIcons.userShield),
+            routeGenerator: routeGenerator,
+          )),
+    };
     return MaterialApp(
       initialRoute: '/',
-      routes: {
-        '/': (context) => HomePage(
-              title: 'Home',
-              menuItem: ListTile(
-                leading: FaIcon(FontAwesomeIcons.home),
-                title: Text('Home'),
-              ),
-            ),
-        '/docs': (context) => DocsPage(
-              title: 'Documents',
-              menuItem: ListTile(
-                leading: FaIcon(FontAwesomeIcons.folderOpen),
-                title: Text('Docs'),
-              ),
-            ),
-        '/blog': (context) => BlogPage(
-              title: 'Blog',
-              menuItem: ListTile(
-                leading: FaIcon(FontAwesomeIcons.blog),
-                title: Text('Blog'),
-              ),
-            ),
-        '/about': (context) => AboutPage(
-              title: 'About',
-              menuItem: ListTile(
-                leading: FaIcon(FontAwesomeIcons.addressCard),
-                title: Text('About'),
-              ),
-            ),
-        '/contact': (context) => ContactPage(
-              title: 'Contact',
-              menuItem: ListTile(
-                leading: FaIcon(FontAwesomeIcons.envelope),
-                title: Text('Contact'),
-              ),
-            ),
-        '/privacy_policy': (context) => PrivacyPolicyPage(
-              title: 'Privacy Policy',
-              menuItem: ListTile(
-                leading: FaIcon(FontAwesomeIcons.userShield),
-                title: Text('Privacy Policy'),
-              ),
-            ),
+      onGenerateRoute: routeGenerator,
+      onGenerateInitialRoutes: (String initialRouteName) {
+        return <Route>[
+          routeGenerator(RouteSettings(
+              name: initialRouteName,
+              arguments: routeGenerator
+                  .builderSettingsMap[initialRouteName]?.arguments))
+        ];
       },
       title: 'Flutter Board',
       theme: ThemeData(

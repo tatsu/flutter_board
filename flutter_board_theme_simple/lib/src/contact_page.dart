@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'page.dart' as page;
 
 class ContactPage extends page.Page {
-  ContactPage({Key key, String title, ListTile menuItem})
-      : super(key: key, title: title, menuItem: menuItem);
+  ContactPage({Key key}) : super(key: key);
 
   @override
   Widget buildContent(BuildContext context) {
