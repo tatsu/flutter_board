@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_board/flutter_board.dart';
 
-import 'widgets/main_drawer.dart';
+import 'page.dart' as page;
 
-class ContactPage extends StatelessWidget implements ContentPage {
-  ContactPage({Key key, this.title, this.menuItem}) : super(key: key);
-
-  final String title;
-  final ListTile menuItem;
+class ContactPage extends page.Page {
+  ContactPage({Key key, String title, ListTile menuItem})
+      : super(key: key, title: title, menuItem: menuItem);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      drawer: MainDrawer(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Under construction',
-            ),
-          ],
-        ),
+  Widget buildContent(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Under construction',
+          ),
+        ],
       ),
     );
   }

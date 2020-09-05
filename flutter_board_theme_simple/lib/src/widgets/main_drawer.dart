@@ -2,45 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 import 'package:path/path.dart' as p;
 
-class MainDrawer extends StatefulWidget {
-  @override
-  _MainDrawerState createState() => _MainDrawerState();
-}
+class MainDrawer extends StatelessWidget {
+  MainDrawer({Key key, @required this.arguments}) : super(key: key);
 
-class _MainDrawerState extends State<MainDrawer> {
+  final PageArguments arguments;
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          FutureBuilder<Config>(
-            future: Config.get(),
-            builder: (BuildContext context, AsyncSnapshot<Config> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                var config = snapshot.data;
-                return UserAccountsDrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
+          UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            accountName: Text(arguments.config['author'] ?? ''),
+            accountEmail: Text(arguments.config['email'] ?? ''),
+            currentAccountPicture: arguments.config['avatar'] != null
+                ? CircleAvatar(
+                    backgroundImage: AssetImage(
+                        p.join('content', arguments.config['avatar'])))
+                : CircleAvatar(
+                    child: FlutterLogo(size: 42.0),
+                    backgroundColor: Colors.white,
                   ),
-                  accountName: Text(config['author'] ?? ''),
-                  accountEmail: Text(config['email'] ?? ''),
-                  currentAccountPicture: config['avatar'] != null
-                      ? CircleAvatar(
-                          backgroundImage:
-                              AssetImage(p.join('content', config['avatar'])))
-                      : CircleAvatar(
-                          child: FlutterLogo(size: 42.0),
-                          backgroundColor: Colors.white,
-                        ),
-                );
-              }
-              return UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-              );
-            },
           ),
           ..._getMenuItems(context),
         ],
@@ -73,7 +59,7 @@ class _MainDrawerState extends State<MainDrawer> {
                     Navigator.popUntil(
                         context, ModalRoute.withName(materialApp.initialRoute));
                     if (k != materialApp.initialRoute) {
-                      Navigator.pushNamed(context, k);
+                      Navigator.pushNamed(context, k, arguments: arguments);
                     }
                   },
               onLongPress: listTile.onLongPress,
