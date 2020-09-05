@@ -8,6 +8,7 @@ class Config {
 
   static Future<Config> get() async {
     if (_instance == null) {
+      await Future.delayed(Duration(seconds: 2)); // TODO: Remove
       _instance = Config._internal();
       _instance._yamlMap = await _instance._load();
     }
