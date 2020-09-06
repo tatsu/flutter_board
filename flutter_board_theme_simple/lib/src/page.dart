@@ -24,7 +24,10 @@ abstract class Page extends StatelessWidget {
             future: Config.get(),
             builder: (BuildContext context, AsyncSnapshot<Config> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                arguments.config = snapshot.data;
+                arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
+                  final args = v.arguments as PageArguments;
+                  args.config = snapshot.data;
+                });
                 return Scaffold(
                   appBar: AppBar(
                     title: Text(arguments.title),
