@@ -7,6 +7,7 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final arguments =
         ModalRoute.of(context).settings.arguments as PageArguments;
+    final config = arguments.boardContext?.config;
 
     return Drawer(
       child: ListView(
@@ -16,21 +17,20 @@ class MainDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            accountName: arguments.config?.containsKey('author') == true
-                ? Text(arguments.config['author'])
+            accountName: config?.containsKey('author') == true
+                ? Text(config['author'])
                 : null,
-            accountEmail: arguments.config?.containsKey('email') == true
-                ? Text(arguments.config['email'])
+            accountEmail: config?.containsKey('email') == true
+                ? Text(config['email'])
                 : null,
-            currentAccountPicture:
-                arguments.config?.containsKey('avatar') == true
-                    ? CircleAvatar(
-                        backgroundImage: AssetImage(
-                            p.join('content', arguments.config['avatar'])))
-                    : CircleAvatar(
-                        child: FlutterLogo(size: 42.0),
-                        backgroundColor: Colors.white,
-                      ),
+            currentAccountPicture: config?.containsKey('avatar') == true
+                ? CircleAvatar(
+                    backgroundImage:
+                        AssetImage(p.join('content', config['avatar'])))
+                : CircleAvatar(
+                    child: FlutterLogo(size: 42.0),
+                    backgroundColor: Colors.white,
+                  ),
           ),
           ..._getMenuItems(context),
         ],

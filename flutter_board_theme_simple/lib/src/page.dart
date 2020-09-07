@@ -15,16 +15,16 @@ abstract class Page extends StatelessWidget {
           title: Text(arguments.title),
         ),
         drawer: MainDrawer(),
-        body: arguments.config != null
+        body: arguments.boardContext != null
             ? buildContent(context)
-            : FutureBuilder<Config>(
-                future: Config.get(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<Config> snapshot) {
+            : FutureBuilder<BoardContext>(
+                future: BoardContext.get(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<BoardContext> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
                       final args = v.arguments as PageArguments;
-                      args.config = snapshot.data;
+                      args.boardContext = snapshot.data;
                     });
                     return buildContent(context);
                   } else {
