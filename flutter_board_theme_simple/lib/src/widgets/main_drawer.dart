@@ -3,12 +3,11 @@ import 'package:flutter_board/flutter_board.dart';
 import 'package:path/path.dart' as p;
 
 class MainDrawer extends StatelessWidget {
-  MainDrawer({Key key, @required this.arguments}) : super(key: key);
-
-  final PageArguments arguments;
-
   @override
   Widget build(BuildContext context) {
+    final arguments =
+        ModalRoute.of(context).settings.arguments as PageArguments;
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -17,16 +16,21 @@ class MainDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
-            accountName: Text(arguments.config['author'] ?? ''),
-            accountEmail: Text(arguments.config['email'] ?? ''),
-            currentAccountPicture: arguments.config['avatar'] != null
-                ? CircleAvatar(
-                    backgroundImage: AssetImage(
-                        p.join('content', arguments.config['avatar'])))
-                : CircleAvatar(
-                    child: FlutterLogo(size: 42.0),
-                    backgroundColor: Colors.white,
-                  ),
+            accountName: arguments.config?.containsKey('author') == true
+                ? Text(arguments.config['author'])
+                : null,
+            accountEmail: arguments.config?.containsKey('email') == true
+                ? Text(arguments.config['email'])
+                : null,
+            currentAccountPicture:
+                arguments.config?.containsKey('avatar') == true
+                    ? CircleAvatar(
+                        backgroundImage: AssetImage(
+                            p.join('content', arguments.config['avatar'])))
+                    : CircleAvatar(
+                        child: FlutterLogo(size: 42.0),
+                        backgroundColor: Colors.white,
+                      ),
           ),
           ..._getMenuItems(context),
         ],
