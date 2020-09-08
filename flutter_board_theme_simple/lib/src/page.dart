@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
 
-abstract class Page extends StatelessWidget {
-  Page({Key key}) : super(key: key);
+abstract class Page extends StatefulWidget {
+  @override
+  _PageState createState() => _PageState();
 
+  Widget buildContent(BuildContext context);
+}
+
+class _PageState extends State<Page> {
   @override
   Widget build(BuildContext context) {
     final arguments =
@@ -16,7 +21,7 @@ abstract class Page extends StatelessWidget {
         ),
         drawer: MainDrawer(),
         body: arguments.boardContext != null
-            ? buildContent(context)
+            ? widget.buildContent(context)
             : FutureBuilder<BoardContext>(
                 future: BoardContext.get(),
                 builder: (BuildContext context,
@@ -26,7 +31,7 @@ abstract class Page extends StatelessWidget {
                       final args = v.arguments as PageArguments;
                       args.boardContext = snapshot.data;
                     });
-                    return buildContent(context);
+                    return widget.buildContent(context);
                   } else {
                     return Center(
                       child: Image.asset(
@@ -39,6 +44,4 @@ abstract class Page extends StatelessWidget {
                   }
                 }));
   }
-
-  Widget buildContent(BuildContext context);
 }

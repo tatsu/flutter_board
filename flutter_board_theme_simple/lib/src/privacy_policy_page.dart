@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'page.dart' as page;
 
 class PrivacyPolicyPage extends page.Page {
-  PrivacyPolicyPage({Key key}) : super(key: key);
-
   @override
   Widget buildContent(BuildContext context) {
     return Center(

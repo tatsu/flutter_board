@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'page.dart' as page;
 
 class DocsPage extends page.Page {
-  DocsPage({Key key}) : super(key: key);
-
   @override
   Widget buildContent(BuildContext context) {
     return Center(
