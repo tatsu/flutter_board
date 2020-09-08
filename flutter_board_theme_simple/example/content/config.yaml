@@ -1,6 +1,7 @@
 name: 'Flutterboard'
 description: 'A simple flutter_board example app.'
 logo: 'images/logo.png'
+theme: 'flutter_board_theme_simple'
 
 avatar: 'images/avatar.png'
 author: 'Tatsuhiko Arai'

@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
 
-class Config with MapMixin {
+class Config with MapMixin<String, dynamic> {
   static Config _instance;
 
   YamlMap _yamlMap;
@@ -34,7 +34,7 @@ class Config with MapMixin {
   void clear() => _yamlMap.clear();
 
   @override
-  Iterable get keys => _yamlMap.keys;
+  Iterable<String> get keys => _yamlMap.keys.map((e) => e as String);
 
   @override
   remove(Object key) => _yamlMap.remove(key);
