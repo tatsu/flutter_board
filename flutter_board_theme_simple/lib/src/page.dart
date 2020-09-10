@@ -28,8 +28,7 @@ class _PageState extends State<Page> {
                     AsyncSnapshot<BoardContext> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
-                      final args = v.arguments as PageArguments;
-                      args.boardContext = snapshot.data;
+                      v.arguments.boardContext = snapshot.data;
                     });
                     return widget.buildContent(context);
                   } else {

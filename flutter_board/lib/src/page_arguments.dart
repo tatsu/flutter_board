@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_board/flutter_board.dart';
-import 'package:flutter_board/src/board_context.dart';
+
+import 'board_context.dart';
+import 'route_generator.dart';
 
 class PageArguments {
   PageArguments(
-      {this.title, this.icon, this.routeGenerator, this.boardContext});
+      {@required this.title,
+      @required this.icon,
+      this.routeGenerator,
+      this.boardContext});
 
   String title;
   Widget icon;

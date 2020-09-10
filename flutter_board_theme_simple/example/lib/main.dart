@@ -18,42 +18,36 @@ class MyApp extends StatelessWidget {
           PageArguments(
             title: 'Home',
             icon: FaIcon(FontAwesomeIcons.home),
-            routeGenerator: routeGenerator,
           )),
       '/docs': RouteBuilderSettings(
           (context) => DocsPage(),
           PageArguments(
             title: 'Documents',
             icon: FaIcon(FontAwesomeIcons.folderOpen),
-            routeGenerator: routeGenerator,
           )),
       '/blog': RouteBuilderSettings(
           (context) => BlogPage(),
           PageArguments(
             title: 'Blog',
             icon: FaIcon(FontAwesomeIcons.blog),
-            routeGenerator: routeGenerator,
           )),
       '/about': RouteBuilderSettings(
           (context) => AboutPage(),
           PageArguments(
             title: 'About',
             icon: FaIcon(FontAwesomeIcons.addressCard),
-            routeGenerator: routeGenerator,
           )),
       '/contact': RouteBuilderSettings(
           (context) => ContactPage(),
           PageArguments(
             title: 'Contact',
             icon: FaIcon(FontAwesomeIcons.envelope),
-            routeGenerator: routeGenerator,
           )),
       '/privacy_policy': RouteBuilderSettings(
           (context) => PrivacyPolicyPage(),
           PageArguments(
             title: 'Privacy Policy',
             icon: FaIcon(FontAwesomeIcons.userShield),
-            routeGenerator: routeGenerator,
           )),
     };
     return MaterialApp(

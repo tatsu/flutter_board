@@ -43,10 +43,9 @@ class MainDrawer extends StatelessWidget {
     final PageArguments arguments = ModalRoute.of(context).settings.arguments;
     final menuItems = <Widget>[];
     arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
-      final args = v.arguments as PageArguments;
       menuItems.add(ListTile(
-        leading: args.icon,
-        title: Text(args.title),
+        leading: v.arguments.icon,
+        title: Text(v.arguments.title),
         onTap: () {
           Navigator.popUntil(
               context, ModalRoute.withName(materialApp.initialRoute));

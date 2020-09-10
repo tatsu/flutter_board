@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 
+import 'page_arguments.dart';
+
 class RouteBuilderSettings {
   RouteBuilderSettings(this.builder, this.arguments);
 
   WidgetBuilder builder;
-  Object arguments;
+  PageArguments arguments;
 }
 
 class RouteGenerator {
-  RouteGenerator({this.builderSettingsMap});
+  RouteGenerator();
 
-  Map<String, RouteBuilderSettings> builderSettingsMap;
+  Map<String, RouteBuilderSettings> _builderSettingsMap;
+
+  Map<String, RouteBuilderSettings> get builderSettingsMap =>
+      _builderSettingsMap;
+
+  set builderSettingsMap(Map<String, RouteBuilderSettings> map) {
+    _builderSettingsMap = map;
+    _builderSettingsMap.forEach((k, v) => v.arguments.routeGenerator = this);
+  }
 
   Route<dynamic> call(RouteSettings settings) {
-    var builderSettings = builderSettingsMap[settings.name];
+    var builderSettings = _builderSettingsMap[settings.name];
     return builderSettings != null
         ? MaterialPageRoute(
             builder: builderSettings.builder,
