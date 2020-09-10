@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:liquid_engine/liquid_engine.dart';
 import 'package:markdown/markdown.dart' as md;
 
-import 'config.dart';
+import 'board_config.dart';
 
 class BoardAssets with ListMixin<String> {
   static BoardAssets _instance;
@@ -76,7 +76,7 @@ class BoardAssets with ListMixin<String> {
         orElse: () => null);
     if (filename == null) return '';
 
-    var config = await Config.get();
+    var config = await BoardConfig.get();
     Context contentContext = Context.create();
     contentContext.variables = Map.from(config);
 

@@ -3,21 +3,21 @@ import 'dart:collection';
 import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
 
-class Config with MapMixin<String, dynamic> {
-  static Config _instance;
+class BoardConfig with MapMixin<String, dynamic> {
+  static BoardConfig _instance;
 
   YamlMap _yamlMap;
 
-  static Future<Config> get() async {
+  static Future<BoardConfig> get() async {
     if (_instance == null) {
       await Future.delayed(Duration(seconds: 2)); // TODO: Remove
-      _instance = Config._internal();
+      _instance = BoardConfig._internal();
       _instance._yamlMap = await _instance._load();
     }
     return _instance;
   }
 
-  Config._internal();
+  BoardConfig._internal();
 
   Future<YamlMap> _load() async {
     var yaml = await rootBundle.loadString('content/config.yaml');

@@ -1,17 +1,16 @@
-import 'package:flutter_board/flutter_board.dart';
-
-import 'config.dart';
+import 'board_assets.dart';
+import 'board_config.dart';
 
 class BoardContext {
   static BoardContext _instance;
 
-  Config config;
+  BoardConfig config;
   BoardAssets assets;
 
   static Future<BoardContext> get() async {
     if (_instance == null) {
       _instance = BoardContext._internal();
-      _instance.config = await Config.get();
+      _instance.config = await BoardConfig.get();
       _instance.assets = await BoardAssets.get();
     }
     return _instance;
