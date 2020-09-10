@@ -50,27 +50,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0-nullsafety.2"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.16.2"
-  cupertino_icons:
-    dependency: transitive
-    description:
-      name: cupertino_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.3"
-  easy_web_view:
-    dependency: "direct main"
-    description:
-      name: easy_web_view
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.3.0"
   fake_async:
     dependency: transitive
     description:
@@ -91,12 +70,12 @@ packages:
     source: path
     version: "0.0.1"
   flutter_markdown:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_markdown
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.5"
+    version: "0.4.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -107,34 +86,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  html:
-    dependency: transitive
-    description:
-      name: html
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.14.0+3"
-  html2md:
-    dependency: transitive
-    description:
-      name: html2md
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.5.1"
-  http:
-    dependency: transitive
-    description:
-      name: http
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.12.2"
-  http_parser:
-    dependency: transitive
-    description:
-      name: http_parser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.4"
   liquid_engine:
     dependency: transitive
     description:
@@ -170,13 +121,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0-nullsafety"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.9.2"
   platform_detect:
     dependency: transitive
     description:
@@ -253,12 +197,12 @@ packages:
     source: hosted
     version: "1.3.0-nullsafety.2"
   url_launcher:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.5.2"
+    version: "5.5.3"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -286,7 +230,7 @@ packages:
       name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.3+1"
+    version: "0.1.3+2"
   vector_math:
     dependency: transitive
     description:
@@ -294,13 +238,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0-nullsafety.2"
-  webview_flutter:
-    dependency: transitive
-    description:
-      name: webview_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.22+1"
   yaml:
     dependency: "direct main"
     description:

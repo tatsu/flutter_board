@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:liquid_engine/liquid_engine.dart';
-import 'package:markdown/markdown.dart' as md;
 
 import 'board_config.dart';
 
@@ -66,8 +65,7 @@ class BoardAssets with ListMixin<String> {
     return _assets.where((element) => element.contains(path)).toList();
   }
 
-  Future<String> getContentHtml(
-      String contentName, String defaultLayout) async {
+  Future<String> getContentMarkdown(String contentName) async {
     if (!isFile(contentName)) return '';
 
     var filenames = getContentFiles(contentName);
@@ -81,28 +79,10 @@ class BoardAssets with ListMixin<String> {
     contentContext.variables = Map.from(config);
 
     var string = await rootBundle.loadString(filename);
-    String content =
-        parseContent(string, contentContext, filename.endsWith('.md'));
-
-    filenames = getContentFiles(defaultLayout);
-    filename = filenames.firstWhere((element) => element.startsWith('content/'),
-        orElse: () => null);
-    if (filename == null && config['theme'] != null) {
-      filename = filenames.firstWhere(
-          (element) => element.startsWith('packages/${config['theme']}/'),
-          orElse: () => null);
-    }
-    if (filename == null) return content;
-
-    var layout = await rootBundle.loadString(filename);
-    contentContext.variables['content'] = content;
-    String page = Template.parse(contentContext, Source.fromString(layout))
-        .render(contentContext);
-
-    return page;
+    return parseContent(string, contentContext);
   }
 
-  String parseContent(String source, Context context, [bool isMd = false]) {
+  String parseContent(String source, Context context) {
     RegExp exp = new RegExp(r"^---\s*$\r?\n", multiLine: true);
     Match match = exp.firstMatch(source);
     if (match != null) {
@@ -117,15 +97,7 @@ class BoardAssets with ListMixin<String> {
       }
     }
 
-    String content;
-    if (isMd) {
-      content = md.markdownToHtml(source);
-      if (content == null) return null;
-    } else {
-      content = source;
-    }
-
-    final template = Template.parse(context, Source.fromString(content));
+    final template = Template.parse(context, Source.fromString(source));
     return template.render(context);
   }
 }

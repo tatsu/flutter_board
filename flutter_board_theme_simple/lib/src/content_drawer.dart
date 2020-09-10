@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 import 'package:path/path.dart' as p;
 
-class MainDrawer extends StatelessWidget {
+class ContentDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arguments =

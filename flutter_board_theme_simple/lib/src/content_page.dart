@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
-import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-abstract class Page extends StatefulWidget {
+import 'content_drawer.dart';
+
+class ContentPage extends StatefulWidget {
   @override
-  _PageState createState() => _PageState();
-
-  Widget buildContent(BuildContext context);
+  _ContentPageState createState() => _ContentPageState();
 }
 
-class _PageState extends State<Page> {
+class _ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
     final arguments =
@@ -19,9 +20,9 @@ class _PageState extends State<Page> {
         appBar: AppBar(
           title: Text(arguments.title),
         ),
-        drawer: MainDrawer(),
+        drawer: ContentDrawer(),
         body: arguments.boardContext != null
-            ? widget.buildContent(context)
+            ? _buildContent(context)
             : FutureBuilder<BoardContext>(
                 future: BoardContext.get(),
                 builder: (BuildContext context,
@@ -30,7 +31,7 @@ class _PageState extends State<Page> {
                     arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
                       v.arguments.boardContext = snapshot.data;
                     });
-                    return widget.buildContent(context);
+                    return _buildContent(context);
                   } else {
                     return Center(
                       child: Image.asset(
@@ -42,5 +43,24 @@ class _PageState extends State<Page> {
                     );
                   }
                 }));
+  }
+
+  Widget _buildContent(BuildContext context) {
+    final settings = ModalRoute.of(context).settings;
+    final PageArguments pageArgument = settings.arguments;
+    return FutureBuilder<String>(
+      future: pageArgument.boardContext.assets
+          .getContentMarkdown(settings.name != '/' ? settings.name : '/home'),
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Markdown(
+            data: snapshot.data,
+            onTapLink: launch,
+            selectable: true,
+          );
+        }
+        return Container();
+      },
+    );
   }
 }
