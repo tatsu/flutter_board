@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'page_arguments.dart';
 
 class RouteBuilderSettings {
-  RouteBuilderSettings(this.builder, this.arguments);
+  RouteBuilderSettings(
+      {@required this.builder, this.subBuilder, @required this.arguments});
 
   WidgetBuilder builder;
+  WidgetBuilder subBuilder;
   PageArguments arguments;
 }
 
@@ -23,10 +25,20 @@ class RouteGenerator {
   }
 
   Route<dynamic> call(RouteSettings settings) {
-    var builderSettings = _builderSettingsMap[settings.name];
+    var key = settings.name;
+    var builderSettings = _builderSettingsMap[key];
+    if (builderSettings == null) {
+      key = _builderSettingsMap.keys
+          .firstWhere((element) => settings.name.startsWith(element + '/'));
+      if (key != null) {
+        builderSettings = _builderSettingsMap[key];
+      }
+    }
     return builderSettings != null
         ? MaterialPageRoute(
-            builder: builderSettings.builder,
+            builder: key == settings.name || builderSettings.subBuilder == null
+                ? builderSettings.builder
+                : builderSettings.subBuilder,
             settings: RouteSettings(
                 name: settings.name, arguments: builderSettings.arguments))
         : MaterialPageRoute(

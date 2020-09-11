@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 
-import 'content_drawer.dart';
 import 'content_markdown.dart';
 
-class ContentPage extends StatefulWidget {
+class ContentSubPage extends StatefulWidget {
   @override
-  _ContentPageState createState() => _ContentPageState();
+  _ContentSubPageState createState() => _ContentSubPageState();
 }
 
-class _ContentPageState extends State<ContentPage> {
+class _ContentSubPageState extends State<ContentSubPage> {
   @override
   Widget build(BuildContext context) {
     final arguments =
@@ -19,7 +18,6 @@ class _ContentPageState extends State<ContentPage> {
         appBar: AppBar(
           title: Text(arguments.title),
         ),
-        drawer: ContentDrawer(),
         body: arguments.boardContext != null
             ? ContentMarkdown()
             : FutureBuilder<BoardContext>(
