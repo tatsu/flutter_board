@@ -5,6 +5,10 @@ import 'content_drawer.dart';
 import 'content_markdown.dart';
 
 class ContentPage extends StatefulWidget {
+  ContentPage({key, this.isSubPage = false}) : super(key: key);
+
+  final bool isSubPage;
+
   @override
   _ContentPageState createState() => _ContentPageState();
 }
@@ -19,7 +23,7 @@ class _ContentPageState extends State<ContentPage> {
         appBar: AppBar(
           title: Text(arguments.title),
         ),
-        drawer: ContentDrawer(),
+        drawer: !widget.isSubPage ? ContentDrawer() : null,
         body: arguments.boardContext != null
             ? ContentMarkdown()
             : FutureBuilder<BoardContext>(

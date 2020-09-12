@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           )),
       '/docs': RouteBuilderSettings(
           builder: (context) => ContentPage(),
-          subBuilder: (context) => ContentSubPage(),
+          subBuilder: (context) => ContentPage(isSubPage: true),
           arguments: PageArguments(
             title: 'Documents',
             icon: FaIcon(FontAwesomeIcons.folderOpen),
