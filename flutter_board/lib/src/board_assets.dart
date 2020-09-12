@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:liquid_engine/liquid_engine.dart';
 
@@ -8,13 +9,18 @@ import 'board_config.dart';
 
 class BoardAssets with ListMixin<String> {
   static BoardAssets _instance;
+  static final _instanceMemo = AsyncMemoizer<BoardAssets>();
 
   List<String> _assets;
 
   static Future<BoardAssets> get() async {
     if (_instance == null) {
-      _instance = BoardAssets._internal();
-      _instance._assets = await _instance._load();
+      _instance = await _instanceMemo.runOnce(() async {
+        var instance = BoardAssets._internal();
+        await await Future.delayed(Duration(seconds: 2)); // TODO: Remove
+        instance._assets = await instance._load();
+        return instance;
+      });
     }
     return _instance;
   }

@@ -1,18 +1,23 @@
 import 'dart:collection';
 
+import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
 
 class BoardConfig with MapMixin<String, dynamic> {
   static BoardConfig _instance;
+  static final _instanceMemo = AsyncMemoizer<BoardConfig>();
 
   YamlMap _yamlMap;
 
   static Future<BoardConfig> get() async {
     if (_instance == null) {
-      await Future.delayed(Duration(seconds: 2)); // TODO: Remove
-      _instance = BoardConfig._internal();
-      _instance._yamlMap = await _instance._load();
+      _instance = await _instanceMemo.runOnce(() async {
+        var instance = BoardConfig._internal();
+        await await Future.delayed(Duration(seconds: 2)); // TODO: Remove
+        instance._yamlMap = await instance._load();
+        return instance;
+      });
     }
     return _instance;
   }
