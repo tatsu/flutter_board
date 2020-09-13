@@ -53,15 +53,8 @@ class MyApp extends StatelessWidget {
     };
     return MaterialApp(
       initialRoute: '/',
-      onGenerateRoute: routeGenerator,
-      onGenerateInitialRoutes: (String initialRouteName) {
-        return <Route>[
-          routeGenerator(RouteSettings(
-              name: initialRouteName,
-              arguments: routeGenerator
-                  .builderSettingsMap[initialRouteName]?.arguments))
-        ];
-      },
+      onGenerateRoute: routeGenerator.generateRoute,
+      onGenerateInitialRoutes: routeGenerator.generateInitialRoutes,
       title: 'Flutter Board',
       theme: ThemeData(
         primarySwatch: Colors.blue,

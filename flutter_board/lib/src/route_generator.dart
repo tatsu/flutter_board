@@ -22,7 +22,7 @@ class RouteGenerator {
     _builderSettingsMap.forEach((k, v) => v.arguments.routeGenerator = this);
   }
 
-  Route<dynamic> call(RouteSettings settings) {
+  Route<dynamic> generateRoute(RouteSettings settings) {
     var key = settings.name;
     var builderSettings = _builderSettingsMap[key];
     if (builderSettings == null) {
@@ -43,5 +43,13 @@ class RouteGenerator {
             builder: (_) => Scaffold(
                 body: Center(
                     child: Text('No route defined for ${settings.name}'))));
+  }
+
+  List<Route<dynamic>> generateInitialRoutes(String initialRoute) {
+    return <Route>[
+      generateRoute(RouteSettings(
+          name: initialRoute,
+          arguments: builderSettingsMap[initialRoute]?.arguments))
+    ];
   }
 }
