@@ -10,24 +10,10 @@ class BoardConfig with MapMixin<String, dynamic> {
 
   YamlMap _yamlMap;
 
-  static Future<BoardConfig> get() async {
-    if (_instance == null) {
-      _instance = await _instanceMemo.runOnce(() async {
-        var instance = BoardConfig._internal();
-        await await Future.delayed(Duration(seconds: 2)); // TODO: Remove
-        instance._yamlMap = await instance._load();
-        return instance;
-      });
-    }
-    return _instance;
-  }
-
   BoardConfig._internal();
 
-  Future<YamlMap> _load() async {
-    var yaml = await rootBundle.loadString('content/config.yaml');
-    return loadYaml(yaml);
-  }
+  @override
+  Iterable<String> get keys => _yamlMap.keys.map((e) => e as String);
 
   @override
   operator [](Object key) => _yamlMap[key];
@@ -39,8 +25,22 @@ class BoardConfig with MapMixin<String, dynamic> {
   void clear() => _yamlMap.clear();
 
   @override
-  Iterable<String> get keys => _yamlMap.keys.map((e) => e as String);
-
-  @override
   remove(Object key) => _yamlMap.remove(key);
+
+  Future<YamlMap> _load() async {
+    var yaml = await rootBundle.loadString('content/config.yaml');
+    return loadYaml(yaml);
+  }
+
+  static Future<BoardConfig> get() async {
+    if (_instance == null) {
+      _instance = await _instanceMemo.runOnce(() async {
+        var instance = BoardConfig._internal();
+        await await Future.delayed(Duration(seconds: 2)); // TODO: Remove
+        instance._yamlMap = await instance._load();
+        return instance;
+      });
+    }
+    return _instance;
+  }
 }

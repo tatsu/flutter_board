@@ -5,11 +5,11 @@ import 'content_drawer.dart';
 import 'content_markdown.dart';
 
 class ContentPage extends StatefulWidget {
+  final bool subPage;
+
+  final bool liquid;
   ContentPage({key, this.subPage = false, this.liquid = false})
       : super(key: key);
-
-  final bool subPage;
-  final bool liquid;
 
   @override
   _ContentPageState createState() => _ContentPageState();

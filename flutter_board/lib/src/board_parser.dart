@@ -6,37 +6,6 @@ import 'board_assets.dart';
 import 'board_config.dart';
 
 class BoardParser {
-  static Future<Map<String, dynamic>> getMarkdownHeader(
-      String contentName) async {
-    var assets = await BoardAssets.get();
-    if (!assets.isFile(contentName)) return {};
-
-    var filenames = assets.getContentFiles(contentName);
-    var filename = filenames.firstWhere(
-        (element) => element.startsWith('content/'),
-        orElse: () => null);
-    if (filename == null) return {};
-
-    var string = await rootBundle.loadString(filename);
-
-    if (string.startsWith('---')) {
-      RegExp exp = new RegExp(r"^---\s*$\r?\n", multiLine: true);
-      Match match = exp.firstMatch(string);
-      if (match != null) {
-        String yamlStart = string.substring(match.end);
-        match = exp.firstMatch(yamlStart);
-        if (match != null) {
-          String yamlString = yamlStart.substring(0, match.start);
-          if (yamlString.isNotEmpty) {
-            return Map.from(loadYaml(yamlString));
-          }
-        }
-      }
-    }
-
-    return {};
-  }
-
   static Future<String> getMarkdown(String contentName,
       {liquid = false}) async {
     var assets = await BoardAssets.get();
@@ -73,6 +42,37 @@ class BoardParser {
     }
 
     return string;
+  }
+
+  static Future<Map<String, dynamic>> getMarkdownHeader(
+      String contentName) async {
+    var assets = await BoardAssets.get();
+    if (!assets.isFile(contentName)) return {};
+
+    var filenames = assets.getContentFiles(contentName);
+    var filename = filenames.firstWhere(
+        (element) => element.startsWith('content/'),
+        orElse: () => null);
+    if (filename == null) return {};
+
+    var string = await rootBundle.loadString(filename);
+
+    if (string.startsWith('---')) {
+      RegExp exp = new RegExp(r"^---\s*$\r?\n", multiLine: true);
+      Match match = exp.firstMatch(string);
+      if (match != null) {
+        String yamlStart = string.substring(match.end);
+        match = exp.firstMatch(yamlStart);
+        if (match != null) {
+          String yamlString = yamlStart.substring(0, match.start);
+          if (yamlString.isNotEmpty) {
+            return Map.from(loadYaml(yamlString));
+          }
+        }
+      }
+    }
+
+    return {};
   }
 
   static Future<String> getMarkdownLiquid(String contentName) async {

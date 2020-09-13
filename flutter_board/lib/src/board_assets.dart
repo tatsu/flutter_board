@@ -10,27 +10,7 @@ class BoardAssets with ListMixin<String> {
 
   List<String> _assets;
 
-  static Future<BoardAssets> get() async {
-    if (_instance == null) {
-      _instance = await _instanceMemo.runOnce(() async {
-        var instance = BoardAssets._internal();
-        await await Future.delayed(Duration(seconds: 2)); // TODO: Remove
-        instance._assets = await instance._load();
-        return instance;
-      });
-    }
-    return _instance;
-  }
-
   BoardAssets._internal();
-
-  Future<List<String>> _load() async {
-    var assets = <String>[];
-    var string = await rootBundle.loadString('AssetManifest.json');
-    Map<String, dynamic> assetsMap = jsonDecode(string);
-    assetsMap.keys.forEach(assets.add);
-    return assets;
-  }
 
   @override
   int get length => _assets.length;
@@ -44,14 +24,12 @@ class BoardAssets with ListMixin<String> {
   @override
   void operator []=(int index, String value) => _assets[index] = value;
 
-  bool isExisted(String path) {
-    return _assets.firstWhere((element) => element.contains(path),
-            orElse: () => null) !=
-        null;
+  List<String> getContentFiles(String path) {
+    return _assets.where((element) => element.contains(path)).toList();
   }
 
-  bool isFolder(String path) {
-    return _assets.firstWhere((element) => element.contains(path + '/'),
+  bool isExisted(String path) {
+    return _assets.firstWhere((element) => element.contains(path),
             orElse: () => null) !=
         null;
   }
@@ -64,7 +42,29 @@ class BoardAssets with ListMixin<String> {
         null;
   }
 
-  List<String> getContentFiles(String path) {
-    return _assets.where((element) => element.contains(path)).toList();
+  bool isFolder(String path) {
+    return _assets.firstWhere((element) => element.contains(path + '/'),
+            orElse: () => null) !=
+        null;
+  }
+
+  Future<List<String>> _load() async {
+    var assets = <String>[];
+    var string = await rootBundle.loadString('AssetManifest.json');
+    Map<String, dynamic> assetsMap = jsonDecode(string);
+    assetsMap.keys.forEach(assets.add);
+    return assets;
+  }
+
+  static Future<BoardAssets> get() async {
+    if (_instance == null) {
+      _instance = await _instanceMemo.runOnce(() async {
+        var instance = BoardAssets._internal();
+        await await Future.delayed(Duration(seconds: 2)); // TODO: Remove
+        instance._assets = await instance._load();
+        return instance;
+      });
+    }
+    return _instance;
   }
 }

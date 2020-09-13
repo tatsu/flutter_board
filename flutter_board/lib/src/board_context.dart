@@ -10,6 +10,8 @@ class BoardContext {
   BoardConfig config;
   BoardAssets assets;
 
+  BoardContext._internal();
+
   static Future<BoardContext> get() async {
     if (_instance == null) {
       _instance = await _instanceMemo.runOnce(() async {
@@ -22,6 +24,4 @@ class BoardContext {
     }
     return _instance;
   }
-
-  BoardContext._internal();
 }

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'page_arguments.dart';
 
 class RouteBuilderSettings {
-  RouteBuilderSettings(
-      {@required this.builder, this.subBuilder, @required this.arguments});
-
   WidgetBuilder builder;
   WidgetBuilder subBuilder;
   PageArguments arguments;
+
+  RouteBuilderSettings(
+      {@required this.builder, this.subBuilder, @required this.arguments});
 }
 
 class RouteGenerator {
@@ -20,6 +20,14 @@ class RouteGenerator {
   set builderSettingsMap(Map<String, RouteBuilderSettings> map) {
     _builderSettingsMap = map;
     _builderSettingsMap.forEach((k, v) => v.arguments.routeGenerator = this);
+  }
+
+  List<Route<dynamic>> generateInitialRoutes(String initialRoute) {
+    return <Route>[
+      generateRoute(RouteSettings(
+          name: initialRoute,
+          arguments: builderSettingsMap[initialRoute]?.arguments))
+    ];
   }
 
   Route<dynamic> generateRoute(RouteSettings settings) {
@@ -43,13 +51,5 @@ class RouteGenerator {
             builder: (_) => Scaffold(
                 body: Center(
                     child: Text('No route defined for ${settings.name}'))));
-  }
-
-  List<Route<dynamic>> generateInitialRoutes(String initialRoute) {
-    return <Route>[
-      generateRoute(RouteSettings(
-          name: initialRoute,
-          arguments: builderSettingsMap[initialRoute]?.arguments))
-    ];
   }
 }
