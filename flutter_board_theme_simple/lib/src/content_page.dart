@@ -5,9 +5,11 @@ import 'content_drawer.dart';
 import 'content_markdown.dart';
 
 class ContentPage extends StatefulWidget {
-  ContentPage({key, this.isSubPage = false}) : super(key: key);
+  ContentPage({key, this.isSubPage = false, this.liquid = false})
+      : super(key: key);
 
   final bool isSubPage;
+  final bool liquid;
 
   @override
   _ContentPageState createState() => _ContentPageState();
@@ -25,7 +27,7 @@ class _ContentPageState extends State<ContentPage> {
         ),
         drawer: !widget.isSubPage ? ContentDrawer() : null,
         body: arguments.boardContext != null
-            ? ContentMarkdown()
+            ? ContentMarkdown(liquid: widget.liquid)
             : FutureBuilder<BoardContext>(
                 future: BoardContext.get(),
                 builder: (BuildContext context,
@@ -34,7 +36,7 @@ class _ContentPageState extends State<ContentPage> {
                     arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
                       v.arguments.boardContext = snapshot.data;
                     });
-                    return ContentMarkdown();
+                    return ContentMarkdown(liquid: widget.liquid);
                   } else {
                     return Center(
                       child: Image.asset(

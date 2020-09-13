@@ -3,9 +3,6 @@ import 'dart:convert';
 
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
-import 'package:liquid_engine/liquid_engine.dart';
-
-import 'board_config.dart';
 
 class BoardAssets with ListMixin<String> {
   static BoardAssets _instance;
@@ -69,41 +66,5 @@ class BoardAssets with ListMixin<String> {
 
   List<String> getContentFiles(String path) {
     return _assets.where((element) => element.contains(path)).toList();
-  }
-
-  Future<String> getContentMarkdown(String contentName) async {
-    if (!isFile(contentName)) return '';
-
-    var filenames = getContentFiles(contentName);
-    var filename = filenames.firstWhere(
-        (element) => element.startsWith('content/'),
-        orElse: () => null);
-    if (filename == null) return '';
-
-    var config = await BoardConfig.get();
-    Context contentContext = Context.create();
-    contentContext.variables = Map.from(config);
-
-    var string = await rootBundle.loadString(filename);
-    return parseContent(string, contentContext);
-  }
-
-  String parseContent(String source, Context context) {
-    RegExp exp = new RegExp(r"^---\s*$\r?\n", multiLine: true);
-    Match match = exp.firstMatch(source);
-    if (match != null) {
-      String yamlStart = source.substring(match.end);
-      match = exp.firstMatch(yamlStart);
-      if (match != null) {
-        String yamlString = yamlStart.substring(0, match.start);
-        if (yamlString != null && yamlString.isNotEmpty) {
-          // Nothing to do here now...
-        }
-        source = yamlStart.substring(match.end);
-      }
-    }
-
-    final template = Template.parse(context, Source.fromString(source));
-    return template.render(context);
   }
 }

@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
             icon: FaIcon(FontAwesomeIcons.envelope),
           )),
       '/privacy_policy': RouteBuilderSettings(
-          builder: (context) => ContentPage(),
+          builder: (context) => ContentPage(liquid: true),
           arguments: MenuPageArguments(
             title: 'Privacy Policy',
             icon: FaIcon(FontAwesomeIcons.userShield),

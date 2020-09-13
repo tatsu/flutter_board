@@ -4,13 +4,18 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContentMarkdown extends StatelessWidget {
+  ContentMarkdown({key, this.liquid = false}) : super(key: key);
+
+  final liquid;
+
   @override
   Widget build(BuildContext context) {
     final settings = ModalRoute.of(context).settings;
     final PageArguments pageArgument = settings.arguments;
     return FutureBuilder<String>(
-      future: pageArgument.boardContext.assets
-          .getContentMarkdown(settings.name != '/' ? settings.name : '/home'),
+      future: BoardParser.getMarkdown(
+          settings.name != '/' ? settings.name : '/home',
+          liquid: liquid),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Markdown(
