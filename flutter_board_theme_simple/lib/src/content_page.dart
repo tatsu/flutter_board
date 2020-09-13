@@ -17,7 +17,7 @@ class _ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
     final arguments =
-        ModalRoute.of(context).settings.arguments as PageArguments;
+        ModalRoute.of(context).settings.arguments as MenuPageArguments;
 
     return Scaffold(
         appBar: AppBar(

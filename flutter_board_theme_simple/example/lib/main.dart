@@ -15,38 +15,38 @@ class MyApp extends StatelessWidget {
     routeGenerator.builderSettingsMap = {
       '/': RouteBuilderSettings(
           builder: (context) => ContentPage(),
-          arguments: PageArguments(
+          arguments: MenuPageArguments(
             title: 'Home',
             icon: FaIcon(FontAwesomeIcons.home),
           )),
       '/docs': RouteBuilderSettings(
           builder: (context) => ContentPage(),
           subBuilder: (context) => ContentPage(isSubPage: true),
-          arguments: PageArguments(
+          arguments: MenuPageArguments(
             title: 'Documents',
             icon: FaIcon(FontAwesomeIcons.folderOpen),
           )),
       '/blog': RouteBuilderSettings(
           builder: (context) => ContentPage(),
-          arguments: PageArguments(
+          arguments: MenuPageArguments(
             title: 'Blog',
             icon: FaIcon(FontAwesomeIcons.blog),
           )),
       '/about': RouteBuilderSettings(
           builder: (context) => ContentPage(),
-          arguments: PageArguments(
+          arguments: MenuPageArguments(
             title: 'About',
             icon: FaIcon(FontAwesomeIcons.addressCard),
           )),
       '/contact': RouteBuilderSettings(
           builder: (context) => ContentPage(),
-          arguments: PageArguments(
+          arguments: MenuPageArguments(
             title: 'Contact',
             icon: FaIcon(FontAwesomeIcons.envelope),
           )),
       '/privacy_policy': RouteBuilderSettings(
           builder: (context) => ContentPage(),
-          arguments: PageArguments(
+          arguments: MenuPageArguments(
             title: 'Privacy Policy',
             icon: FaIcon(FontAwesomeIcons.userShield),
           )),

@@ -43,17 +43,20 @@ class ContentDrawer extends StatelessWidget {
     final PageArguments arguments = ModalRoute.of(context).settings.arguments;
     final menuItems = <Widget>[];
     arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
-      menuItems.add(ListTile(
-        leading: v.arguments.icon,
-        title: Text(v.arguments.title),
-        onTap: () {
-          Navigator.popUntil(
-              context, ModalRoute.withName(materialApp.initialRoute));
-          if (k != materialApp.initialRoute) {
-            Navigator.pushNamed(context, k, arguments: arguments);
-          }
-        },
-      ));
+      var arg = v.arguments as MenuPageArguments;
+      if (arg != null) {
+        menuItems.add(ListTile(
+          leading: arg.icon,
+          title: Text(arg.title),
+          onTap: () {
+            Navigator.popUntil(
+                context, ModalRoute.withName(materialApp.initialRoute));
+            if (k != materialApp.initialRoute) {
+              Navigator.pushNamed(context, k, arguments: arguments);
+            }
+          },
+        ));
+      }
     });
     return menuItems;
   }
