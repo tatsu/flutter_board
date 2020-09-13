@@ -12,8 +12,6 @@ class RouteBuilderSettings {
 }
 
 class RouteGenerator {
-  RouteGenerator();
-
   Map<String, RouteBuilderSettings> _builderSettingsMap;
 
   Map<String, RouteBuilderSettings> get builderSettingsMap =>
