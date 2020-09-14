@@ -24,26 +24,42 @@ class BoardAssets with ListMixin<String> {
   @override
   void operator []=(int index, String value) => _assets[index] = value;
 
-  List<String> getContentFiles(String path) {
-    return _assets.where((element) => element.contains(path)).toList();
+  String getContentFilename(String route) {
+    var slashPos = route.lastIndexOf('/');
+    var path = route.substring(0, slashPos + 1);
+    var slug = route.substring(slashPos + 1);
+    return _assets.firstWhere((element) {
+      RegExp exp =
+          RegExp("^(.*?)$path(\\d{4}-\\d{2}-\\d{2}-)?$slug(\\.[^.]+)?\$");
+      Match match = exp.firstMatch(element);
+      return match != null;
+    });
   }
 
-  bool isExisted(String path) {
-    return _assets.firstWhere((element) => element.contains(path),
-            orElse: () => null) !=
+  List<String> getContentFilenames(String route) {
+    return _assets.where((element) => element.contains(route + '/')).toList();
+  }
+
+  bool isExisted(String route) {
+    return isFile(route) || isFolder(route);
+  }
+
+  bool isFile(String route) {
+    if (isFolder(route)) return false;
+    var slashPos = route.lastIndexOf('/');
+    var path = route.substring(0, slashPos + 1);
+    var slug = route.substring(slashPos + 1);
+    return _assets.firstWhere((element) {
+          RegExp exp =
+              RegExp("^(.*?)$path(\\d{4}-\\d{2}-\\d{2}-)?$slug(\\.[^.]+)?\$");
+          Match match = exp.firstMatch(element);
+          return match != null;
+        }, orElse: null) !=
         null;
   }
 
-  bool isFile(String path) {
-    return _assets.firstWhere(
-            (element) =>
-                element.contains(path) && !element.contains(path + '/'),
-            orElse: () => null) !=
-        null;
-  }
-
-  bool isFolder(String path) {
-    return _assets.firstWhere((element) => element.contains(path + '/'),
+  bool isFolder(String route) {
+    return _assets.firstWhere((element) => element.contains(route + '/'),
             orElse: () => null) !=
         null;
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
+import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -11,7 +12,7 @@ class ContentMarkdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = ModalRoute.of(context).settings;
-    final PageArguments pageArgument = settings.arguments;
+    final PageArguments pageArguments = settings.arguments;
     return FutureBuilder<String>(
       future: BoardParser.getMarkdown(
           settings.name != '/' ? settings.name : '/home',
@@ -24,12 +25,15 @@ class ContentMarkdown extends StatelessWidget {
               const contentPath = 'resource:content';
               if (href.startsWith(contentPath)) {
                 String uri = href.substring(contentPath.length);
-                Navigator.pushNamed(context, uri, arguments: pageArgument);
+                Navigator.pushNamed(context, uri, arguments: pageArguments);
               } else {
                 launch(href);
               }
             },
             selectable: true,
+            styleSheet: pageArguments is ContentPageArguments
+                ? pageArguments.markdownStyleSheet
+                : null,
           );
         }
         return Container();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() {
@@ -27,10 +28,13 @@ class MyApp extends StatelessWidget {
             icon: FaIcon(FontAwesomeIcons.folderOpen),
           )),
       '/blog': RouteBuilderSettings(
-          builder: (context) => ContentPage(),
-          arguments: MenuPageArguments(
+          builder: (context) => ContentPage(liquid: true),
+          subBuilder: (context) => ContentPage(subPage: true, liquid: true),
+          arguments: ContentPageArguments(
             title: 'Blog',
             icon: FaIcon(FontAwesomeIcons.blog),
+            markdownStyleSheet: MarkdownStyleSheet(
+                tableBorder: TableBorder.all(style: BorderStyle.none)),
           )),
       '/about': RouteBuilderSettings(
           builder: (context) => ContentPage(),

@@ -9,18 +9,14 @@ class BoardParser {
   static Future<String> getMarkdown(String contentName,
       {liquid = false}) async {
     var assets = await BoardAssets.get();
-    if (!assets.isFile(contentName)) return '';
 
-    var filenames = assets.getContentFiles(contentName);
-    var filename = filenames.firstWhere(
-        (element) => element.startsWith('content/'),
-        orElse: () => null);
+    var filename = assets.getContentFilename(contentName);
     if (filename == null) return '';
 
     var string = await rootBundle.loadString(filename);
 
     if (string.startsWith('---')) {
-      RegExp exp = new RegExp(r"^---\s*$\r?\n", multiLine: true);
+      RegExp exp = RegExp(r"^---\s*$\r?\n", multiLine: true);
       Match match = exp.firstMatch(string);
       if (match != null) {
         String yamlStart = string.substring(match.end);
@@ -38,6 +34,19 @@ class BoardParser {
       var config = await BoardConfig.get();
       Context contentContext = Context.create();
       contentContext.variables = Map.from(config);
+      contentContext.variables['content'] = contentName;
+
+      var meta = await _getFileAttributes(filename);
+      contentContext.variables.addAll(meta);
+
+      var filenames = assets.getContentFilenames(contentName);
+      var files = <Map<String, dynamic>>[];
+      for (var filename in filenames) {
+        var meta = await _getFileAttributes(filename);
+        files.add(meta);
+      }
+      contentContext.variables['files'] = files;
+
       string = _parseLiquid(string, contentContext);
     }
 
@@ -49,16 +58,13 @@ class BoardParser {
     var assets = await BoardAssets.get();
     if (!assets.isFile(contentName)) return {};
 
-    var filenames = assets.getContentFiles(contentName);
-    var filename = filenames.firstWhere(
-        (element) => element.startsWith('content/'),
-        orElse: () => null);
+    var filename = assets.getContentFilename(contentName);
     if (filename == null) return {};
 
     var string = await rootBundle.loadString(filename);
 
     if (string.startsWith('---')) {
-      RegExp exp = new RegExp(r"^---\s*$\r?\n", multiLine: true);
+      RegExp exp = RegExp(r"^---\s*$\r?\n", multiLine: true);
       Match match = exp.firstMatch(string);
       if (match != null) {
         String yamlStart = string.substring(match.end);
@@ -77,6 +83,23 @@ class BoardParser {
 
   static Future<String> getMarkdownLiquid(String contentName) async {
     return getMarkdown(contentName, liquid: true);
+  }
+
+  static Future<Map<String, dynamic>> _getFileAttributes(
+      String filename) async {
+    Map<String, dynamic> meta = {'filename': filename};
+    RegExp exp = RegExp(r"^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$");
+    Match match = exp.firstMatch(filename);
+    if (match != null) {
+      meta['date'] = match[1];
+      meta['slug'] = match[2];
+    }
+    if (filename.endsWith('.md') || filename.endsWith('.markdown')) {
+      var header = await getMarkdownHeader(filename);
+      meta.addAll(header);
+    }
+
+    return meta;
   }
 
   static String _parseLiquid(String source, Context context) {
