@@ -4,6 +4,8 @@ import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'src/contact_page.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
             icon: FaIcon(FontAwesomeIcons.addressCard),
           )),
       '/contact': RouteBuilderSettings(
-          builder: (context) => ContentPage(),
+          builder: (context) => ContactPage(),
           arguments: MenuPageArguments(
             title: 'Contact',
             icon: FaIcon(FontAwesomeIcons.envelope),
