@@ -4,6 +4,7 @@ import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'src/about_page.dart';
 import 'src/contact_page.dart';
 
 void main() {
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
                 tableBorder: TableBorder.all(style: BorderStyle.none)),
           )),
       '/about': RouteBuilderSettings(
-          builder: (context) => ContentPage(),
+          builder: (context) => AboutPage(),
           arguments: MenuPageArguments(
             title: 'About',
             icon: FaIcon(FontAwesomeIcons.addressCard),
