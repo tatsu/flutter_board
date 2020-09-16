@@ -27,7 +27,7 @@ class _ContentPageState extends State<ContentPage> {
         ),
         drawer: !widget.subPage ? ContentDrawer() : null,
         body: arguments.boardContext != null
-            ? ContentMarkdown(liquid: widget.liquid)
+            ? getContentWidget(context)
             : FutureBuilder<BoardContext>(
                 future: BoardContext.get(),
                 builder: (BuildContext context,
@@ -36,17 +36,21 @@ class _ContentPageState extends State<ContentPage> {
                     arguments.routeGenerator.builderSettingsMap.forEach((k, v) {
                       v.arguments.boardContext = snapshot.data;
                     });
-                    return ContentMarkdown(liquid: widget.liquid);
+                    return getContentWidget(context);
                   } else {
-                    return Center(
-                      child: Image.asset(
-                        // TODO: Make the logo image customizable.
-                        'packages/flutter_board_theme_simple/templates/images/logo.png',
-                        width: 320,
-                        fit: BoxFit.fitWidth,
-                      ),
-                    );
+                    return getSplashWidget(context);
                   }
                 }));
   }
+
+  Widget getContentWidget(BuildContext context) =>
+      ContentMarkdown(liquid: widget.liquid);
+
+  Widget getSplashWidget(BuildContext context) => Center(
+        child: Image.asset(
+          'packages/flutter_board_theme_simple/templates/images/logo.png',
+          width: 320,
+          fit: BoxFit.fitWidth,
+        ),
+      );
 }
