@@ -4,18 +4,13 @@ import 'package:flutter_board/flutter_board.dart';
 import 'content_drawer.dart';
 import 'content_markdown.dart';
 
-class ContentPage extends StatefulWidget {
+class ContentPage extends StatelessWidget {
   final bool subPage;
-
   final bool liquid;
+
   ContentPage({key, this.subPage = false, this.liquid = false})
       : super(key: key);
 
-  @override
-  _ContentPageState createState() => _ContentPageState();
-}
-
-class _ContentPageState extends State<ContentPage> {
   @override
   Widget build(BuildContext context) {
     final arguments =
@@ -25,7 +20,7 @@ class _ContentPageState extends State<ContentPage> {
         appBar: AppBar(
           title: Text(arguments.title),
         ),
-        drawer: !widget.subPage ? ContentDrawer() : null,
+        drawer: !subPage ? ContentDrawer() : null,
         body: arguments.boardContext != null
             ? getContentWidget(context)
             : FutureBuilder<BoardContext>(
@@ -44,7 +39,7 @@ class _ContentPageState extends State<ContentPage> {
   }
 
   Widget getContentWidget(BuildContext context) =>
-      ContentMarkdown(liquid: widget.liquid);
+      ContentMarkdown(liquid: liquid);
 
   Widget getSplashWidget(BuildContext context) => Center(
         child: Image.asset(
