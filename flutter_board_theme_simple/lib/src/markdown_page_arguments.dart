@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-class ContentPageArguments extends MenuPageArguments {
+class MarkdownPageArguments extends MenuPageArguments {
   MarkdownStyleSheet markdownStyleSheet;
 
-  ContentPageArguments(
+  MarkdownPageArguments(
       {@required title,
       @required icon,
       this.markdownStyleSheet,

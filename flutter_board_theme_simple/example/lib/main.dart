@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       '/blog': RouteBuilderSettings(
           builder: (context) => ContentPage(liquid: true),
           subBuilder: (context) => ContentPage(subPage: true, liquid: true),
-          arguments: ContentPageArguments(
+          arguments: MarkdownPageArguments(
             title: 'Blog',
             icon: FaIcon(FontAwesomeIcons.blog),
             markdownStyleSheet: MarkdownStyleSheet(

@@ -31,7 +31,7 @@ class ContentMarkdown extends StatelessWidget {
               }
             },
             selectable: true,
-            styleSheet: pageArguments is ContentPageArguments
+            styleSheet: pageArguments is MarkdownPageArguments
                 ? pageArguments.markdownStyleSheet
                 : null,
           );
