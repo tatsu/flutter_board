@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'src/about_page.dart';
 import 'src/contact_page.dart';
+import 'src/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     routeGenerator.builderSettingsMap = {
       '/': RouteBuilderSettings(
-          builder: (context) => ContentPage(),
+          builder: (context) => HomePage(),
           arguments: MenuPageArguments(
             title: 'Home',
             icon: FaIcon(FontAwesomeIcons.home),
