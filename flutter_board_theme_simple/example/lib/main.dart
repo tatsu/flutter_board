@@ -5,6 +5,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'src/about_page.dart';
+import 'src/blog_page.dart';
 import 'src/contact_page.dart';
 import 'src/home_page.dart';
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
             icon: FaIcon(FontAwesomeIcons.folderOpen),
           )),
       '/blog': RouteBuilderSettings(
-          builder: (context) => ContentPage(liquid: true),
+          builder: (context) => BlogPage(),
           subBuilder: (context) => ContentPage(subPage: true, liquid: true),
           arguments: MarkdownPageArguments(
             title: 'Blog',
