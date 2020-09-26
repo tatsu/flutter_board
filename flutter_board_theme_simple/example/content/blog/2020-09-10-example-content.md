@@ -2,7 +2,7 @@
 title: Example content
 description: Howdy! This is an example blog post that shows several types of markdown content supported in this theme.
 categories: [ flutter, markdown ]
-image: packages/flutter_board_theme_simple/templates/images/logo_64.png
+image: packages/flutter_board_theme_simple/content/images/logo_64.png
 ---
 
 ## {{ title }}

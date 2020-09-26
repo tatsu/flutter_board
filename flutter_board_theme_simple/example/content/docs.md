@@ -1,4 +1,4 @@
-![Flutter logo](resource:packages/flutter_board_theme_simple/templates/images/logo_128.png)
+![Flutter logo](resource:packages/flutter_board_theme_simple/content/images/logo_128.png)
 
 We use several great packages in this app.
 

@@ -2,7 +2,7 @@
 title: What's Flutter Board?
 description: Flutter Board is a simple blog-aware document-based app engine in Flutter.
 categories: [ flutter ]
-image: packages/flutter_board_theme_simple/templates/images/logo_64.png
+image: packages/flutter_board_theme_simple/content/images/logo_64.png
 ---
 
 ## {{ title }}

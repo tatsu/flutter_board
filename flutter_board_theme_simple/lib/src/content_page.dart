@@ -43,7 +43,7 @@ class ContentPage extends StatelessWidget {
 
   Widget getSplashWidget(BuildContext context) => Center(
         child: Image.asset(
-          'packages/flutter_board_theme_simple/templates/images/logo.png',
+          'packages/flutter_board_theme_simple/content/images/logo.png',
           width: 320,
           fit: BoxFit.fitWidth,
         ),
