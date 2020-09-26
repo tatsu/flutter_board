@@ -36,13 +36,13 @@ class BoardParser {
       contentContext.variables = Map.from(config);
       contentContext.variables['content'] = contentName;
 
-      var meta = await _getFileAttributes(filename);
+      var meta = await getFileVariables(filename);
       contentContext.variables.addAll(meta);
 
       var filenames = assets.getContentFilenames(contentName);
       var files = <Map<String, dynamic>>[];
       for (var filename in filenames) {
-        var meta = await _getFileAttributes(filename);
+        var meta = await getFileVariables(filename);
         files.add(meta);
       }
       contentContext.variables['files'] = files;
@@ -85,8 +85,7 @@ class BoardParser {
     return getMarkdown(contentName, liquid: true);
   }
 
-  static Future<Map<String, dynamic>> _getFileAttributes(
-      String filename) async {
+  static Future<Map<String, dynamic>> getFileVariables(String filename) async {
     Map<String, dynamic> meta = {'filename': filename};
     RegExp exp = RegExp(r"^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$");
     Match match = exp.firstMatch(filename);
