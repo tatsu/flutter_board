@@ -14,7 +14,7 @@ class BlogPage extends ContentPage {
         itemCount: files.length,
         itemBuilder: (context, position) {
           return FutureBuilder<Map<String, dynamic>>(
-            future: BoardParser.getFileVariables(files[position]),
+            future: MarkdownHelper.getFileVariables(files[position]),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, dynamic>> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {

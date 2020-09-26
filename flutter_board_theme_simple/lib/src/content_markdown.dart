@@ -14,7 +14,7 @@ class ContentMarkdown extends StatelessWidget {
     final settings = ModalRoute.of(context).settings;
     final PageArguments pageArguments = settings.arguments;
     return FutureBuilder<String>(
-      future: BoardParser.getMarkdown(
+      future: MarkdownHelper.getMarkdown(
           settings.name != '/' ? settings.name : '/home',
           liquid: liquid),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {

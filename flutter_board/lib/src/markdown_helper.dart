@@ -5,7 +5,7 @@ import 'package:yaml/yaml.dart';
 import 'board_assets.dart';
 import 'board_config.dart';
 
-class BoardParser {
+class MarkdownHelper {
   static Future<Map<String, dynamic>> getFileVariables(String filename) async {
     Map<String, dynamic> meta = {'filename': filename};
     RegExp exp = RegExp(r"^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$");
