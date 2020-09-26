@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double sizeX = MediaQuery.of(context).size.width;
+    final sizeX = MediaQuery.of(context).size.width;
     final TextStyle titleStyle = TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
@@ -25,13 +25,14 @@ class AboutPage extends StatelessWidget {
         title: Text(arguments.title),
       ),
       drawer: ContentDrawer(),
-      body: Container(
-        width: sizeX,
-        padding: EdgeInsets.all(sizeX / 5),
-        child: Center(
+      body: SingleChildScrollView(
+        child: Container(
+          width: sizeX,
+          padding: EdgeInsets.symmetric(horizontal: sizeX / 5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 96),
               CircleAvatar(
                   backgroundImage: AssetImage('content/images/avatar.png'),
                   radius: 48),
@@ -85,6 +86,7 @@ class AboutPage extends StatelessWidget {
               SizedBox(height: 16),
               Text('An old padawan programmer,\nlearning to be a master.',
                   style: textStyle),
+              SizedBox(height: 96),
             ],
           ),
         ),
