@@ -11,12 +11,6 @@ class _ContactPageState extends State<ContactPage> {
   String name, email, message;
 
   @override
-  void initState() {
-    name = email = message = '';
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final arguments =
         ModalRoute.of(context).settings.arguments as MenuPageArguments;
@@ -83,6 +77,12 @@ class _ContactPageState extends State<ContactPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    name = email = message = '';
+    super.initState();
   }
 
   void _showDialog(String message) {

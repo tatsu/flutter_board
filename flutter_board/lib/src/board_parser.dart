@@ -6,6 +6,22 @@ import 'board_assets.dart';
 import 'board_config.dart';
 
 class BoardParser {
+  static Future<Map<String, dynamic>> getFileVariables(String filename) async {
+    Map<String, dynamic> meta = {'filename': filename};
+    RegExp exp = RegExp(r"^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$");
+    Match match = exp.firstMatch(filename);
+    if (match != null) {
+      meta['date'] = match[1];
+      meta['slug'] = match[2];
+    }
+    if (filename.endsWith('.md') || filename.endsWith('.markdown')) {
+      var header = await getMarkdownHeader(filename);
+      meta.addAll(header);
+    }
+
+    return meta;
+  }
+
   static Future<String> getMarkdown(String contentName,
       {liquid = false}) async {
     var assets = await BoardAssets.get();
@@ -83,22 +99,6 @@ class BoardParser {
 
   static Future<String> getMarkdownLiquid(String contentName) async {
     return getMarkdown(contentName, liquid: true);
-  }
-
-  static Future<Map<String, dynamic>> getFileVariables(String filename) async {
-    Map<String, dynamic> meta = {'filename': filename};
-    RegExp exp = RegExp(r"^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$");
-    Match match = exp.firstMatch(filename);
-    if (match != null) {
-      meta['date'] = match[1];
-      meta['slug'] = match[2];
-    }
-    if (filename.endsWith('.md') || filename.endsWith('.markdown')) {
-      var header = await getMarkdownHeader(filename);
-      meta.addAll(header);
-    }
-
-    return meta;
   }
 
   static String _parseLiquid(String source, Context context) {
