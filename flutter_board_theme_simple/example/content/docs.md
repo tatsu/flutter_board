@@ -1,6 +1,6 @@
 ![Flutter logo](resource:packages/flutter_board_theme_simple/content/images/logo_128.png)
 
-We use several great packages in this app.
+I use several great packages in this app.
 
 [flutter markdown](resource:content/docs/flutter_markdown)
 
