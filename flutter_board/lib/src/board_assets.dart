@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 
+/// Assets manager of the application using this package.
 class BoardAssets with ListMixin<String> {
   static BoardAssets _instance;
   static final _instanceMemo = AsyncMemoizer<BoardAssets>();
@@ -24,6 +25,7 @@ class BoardAssets with ListMixin<String> {
   @override
   void operator []=(int index, String value) => _assets[index] = value;
 
+  /// Returns a content filename of the route.
   String getContentFilename(String route) {
     var slashPos = route.lastIndexOf('/');
     var path = route.substring(0, slashPos + 1);
@@ -36,14 +38,17 @@ class BoardAssets with ListMixin<String> {
     });
   }
 
+  /// Returns content filenames in the route folder.
   List<String> getContentFilenames(String route) {
     return _assets.where((element) => element.contains(route + '/')).toList();
   }
 
+  /// Whether the file and/or folder of the route is existed or not.
   bool isExisted(String route) {
     return isFile(route) || isFolder(route);
   }
 
+  /// Whether the file of the route is existed or not.
   bool isFile(String route) {
     if (isFolder(route)) return false;
     var slashPos = route.lastIndexOf('/');
@@ -58,6 +63,7 @@ class BoardAssets with ListMixin<String> {
         null;
   }
 
+  /// Whether the folder of the route is existed or not.
   bool isFolder(String route) {
     return _assets.firstWhere((element) => element.contains(route + '/'),
             orElse: () => null) !=
@@ -72,6 +78,7 @@ class BoardAssets with ListMixin<String> {
     return assets;
   }
 
+  /// Creates or returns a singleton instance of assets manager.
   static Future<BoardAssets> get() async {
     if (_instance == null) {
       _instance = await _instanceMemo.runOnce(() async {

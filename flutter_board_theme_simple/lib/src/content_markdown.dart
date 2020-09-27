@@ -4,11 +4,16 @@ import 'package:flutter_board_theme_simple/flutter_board_theme_simple.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// A scrolling widget that parses and displays Markdown in an flutter board
+/// simple theme application.
 class ContentMarkdown extends StatelessWidget {
+  /// Whether to use Liquid template or not.
   final liquid;
 
+  /// Creates a scrolling widget that parses and displays Markdown.
   ContentMarkdown({key, this.liquid = false}) : super(key: key);
 
+  /// Describes the part of the user interface represented by this widget.
   @override
   Widget build(BuildContext context) {
     final settings = ModalRoute.of(context).settings;

@@ -4,13 +4,20 @@ import 'package:flutter_board/flutter_board.dart';
 import 'content_drawer.dart';
 import 'content_markdown.dart';
 
+/// Implements the basic material design visual layout structure of content
+/// pages in an flutter board simple theme application.
 class ContentPage extends StatelessWidget {
+  /// Whether it is the sub page on the main page or not.
   final bool subPage;
+
+  /// Whether to use Liquid template or not.
   final bool liquid;
 
+  /// Creates a visual scaffold for material design widgets of content pages.
   ContentPage({key, this.subPage = false, this.liquid = false})
       : super(key: key);
 
+  /// Describes the part of the user interface represented by this widget.
   @override
   Widget build(BuildContext context) {
     final arguments =
@@ -40,9 +47,11 @@ class ContentPage extends StatelessWidget {
                 }));
   }
 
+  /// Gets a content markdown widget.
   Widget getContentWidget(BuildContext context) =>
       ContentMarkdown(liquid: liquid);
 
+  /// Gets a splash widget.
   Widget getSplashWidget(BuildContext context) => Center(
         child: Image.asset(
           'packages/flutter_board_theme_simple/content/images/logo.png',

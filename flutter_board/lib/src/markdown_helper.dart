@@ -5,7 +5,9 @@ import 'package:yaml/yaml.dart';
 import 'board_assets.dart';
 import 'board_config.dart';
 
+/// Helper functions for markdown files.
 class MarkdownHelper {
+  /// Gets markdown file variables.
   static Future<Map<String, dynamic>> getFileVariables(String filename) async {
     Map<String, dynamic> meta = {'filename': filename};
     RegExp exp = RegExp(r"^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$");
@@ -22,6 +24,7 @@ class MarkdownHelper {
     return meta;
   }
 
+  /// Gets markdown file content.
   static Future<String> getMarkdown(String contentName,
       {liquid = false}) async {
     var assets = await BoardAssets.get();
@@ -69,6 +72,7 @@ class MarkdownHelper {
     return string;
   }
 
+  /// Get markdown file header yaml.
   static Future<Map<String, dynamic>> getMarkdownHeader(
       String contentName) async {
     var assets = await BoardAssets.get();
@@ -97,6 +101,7 @@ class MarkdownHelper {
     return {};
   }
 
+  /// Gets markdown file content rendered by Liquid.
   static Future<String> getMarkdownLiquid(String contentName) async {
     return getMarkdown(contentName, liquid: true);
   }

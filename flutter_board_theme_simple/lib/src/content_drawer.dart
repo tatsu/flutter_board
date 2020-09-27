@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_board/flutter_board.dart';
 import 'package:path/path.dart' as p;
 
+/// A material design [Drawer] of a [Scaffold] to show navigation links in an
+/// flutter board simple theme application.
 class ContentDrawer extends StatelessWidget {
+  /// Describes the part of the user interface represented by this widget.
   @override
   Widget build(BuildContext context) {
     final arguments =

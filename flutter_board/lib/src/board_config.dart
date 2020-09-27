@@ -4,6 +4,7 @@ import 'package:async/async.dart';
 import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
 
+/// A configuration manager of the application using this package.
 class BoardConfig with MapMixin<String, dynamic> {
   static BoardConfig _instance;
   static final _instanceMemo = AsyncMemoizer<BoardConfig>();
@@ -32,6 +33,7 @@ class BoardConfig with MapMixin<String, dynamic> {
     return loadYaml(yaml);
   }
 
+  /// Creates or returns a singleton instance of a configuration manager.
   static Future<BoardConfig> get() async {
     if (_instance == null) {
       _instance = await _instanceMemo.runOnce(() async {
