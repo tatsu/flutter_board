@@ -36,7 +36,6 @@ class BoardConfig with MapMixin<String, dynamic> {
     if (_instance == null) {
       _instance = await _instanceMemo.runOnce(() async {
         var instance = BoardConfig._internal();
-        await await Future.delayed(Duration(seconds: 2)); // TODO: Remove
         instance._yamlMap = await instance._load();
         return instance;
       });

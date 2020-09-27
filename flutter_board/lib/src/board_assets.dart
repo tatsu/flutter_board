@@ -76,7 +76,6 @@ class BoardAssets with ListMixin<String> {
     if (_instance == null) {
       _instance = await _instanceMemo.runOnce(() async {
         var instance = BoardAssets._internal();
-        await await Future.delayed(Duration(seconds: 2)); // TODO: Remove
         instance._assets = await instance._load();
         return instance;
       });
