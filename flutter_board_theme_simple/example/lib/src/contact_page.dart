@@ -8,7 +8,7 @@ class ContactPage extends StatefulWidget {
 }
 
 class _ContactPageState extends State<ContactPage> {
-  String name, email, message;
+  String name = '', email = '', message = '';
 
   @override
   Widget build(BuildContext context) {

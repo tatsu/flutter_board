@@ -23,7 +23,8 @@ class ContentMarkdown extends StatelessWidget {
           settings.name != '/' ? settings.name : '/home',
           liquid: liquid),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.data != null) {
           return Markdown(
             data: snapshot.data,
             onTapLink: (href) {

@@ -7,8 +7,8 @@ class BlogPage extends ContentPage {
   Widget getContentWidget(BuildContext context) {
     final settings = ModalRoute.of(context).settings;
     final arguments = settings.arguments as MenuPageArguments;
-    final assets = arguments?.boardContext?.assets;
-    final files = assets?.getContentFilenames(settings.name) ?? <String>[];
+    final assets = arguments.boardContext.assets;
+    final files = assets.getContentFilenames(settings.name);
 
     return ListView.builder(
         itemCount: files.length,
@@ -17,7 +17,8 @@ class BlogPage extends ContentPage {
             future: MarkdownHelper.getFileVariables(files[position]),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, dynamic>> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.connectionState == ConnectionState.done &&
+                  snapshot.data != null) {
                 final data = snapshot.data;
                 return Card(
                     color: Colors.white,
@@ -30,8 +31,7 @@ class BlogPage extends ContentPage {
                               child: Image.asset(data['image']))
                           : null,
                       title: Text(data['title'] ?? 'No title'),
-                      subtitle: Text("${data['date']} ${data['description']}" ??
-                          'No description'),
+                      subtitle: Text("${data['date']} ${data['description']}"),
                       onTap: () {
                         Navigator.pushNamed(
                             context, '${settings.name}/${data['slug']}',
