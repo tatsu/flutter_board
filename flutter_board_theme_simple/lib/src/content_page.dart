@@ -24,7 +24,9 @@ class ContentPage extends StatelessWidget {
         body: arguments.boardContext != null
             ? getContentWidget(context)
             : FutureBuilder<BoardContext>(
-                future: BoardContext.get(),
+                future: Future.delayed(Duration(seconds: 2), () async {
+                  return BoardContext.get();
+                }),
                 builder: (BuildContext context,
                     AsyncSnapshot<BoardContext> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
