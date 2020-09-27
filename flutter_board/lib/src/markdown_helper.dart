@@ -9,8 +9,8 @@ import 'board_config.dart';
 class MarkdownHelper {
   /// Gets markdown file variables.
   static Future<Map<String, dynamic>> getFileVariables(String filename) async {
-    Map<String, dynamic> meta = {'filename': filename};
-    RegExp exp = RegExp(r"^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$");
+    var meta = {'filename': filename};
+    var exp = RegExp(r'^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$');
     Match match = exp.firstMatch(filename);
     if (match != null) {
       meta['date'] = match[1];
@@ -35,13 +35,13 @@ class MarkdownHelper {
     var string = await rootBundle.loadString(filename);
 
     if (string.startsWith('---')) {
-      RegExp exp = RegExp(r"^---\s*$\r?\n", multiLine: true);
+      var exp = RegExp(r'^---\s*$\r?\n', multiLine: true);
       Match match = exp.firstMatch(string);
       if (match != null) {
-        String yamlStart = string.substring(match.end);
+        var yamlStart = string.substring(match.end);
         match = exp.firstMatch(yamlStart);
         if (match != null) {
-          String yamlString = yamlStart.substring(0, match.start);
+          var yamlString = yamlStart.substring(0, match.start);
           if (yamlString.isNotEmpty) {
             string = yamlStart.substring(match.end);
           }
@@ -51,7 +51,7 @@ class MarkdownHelper {
 
     if (liquid) {
       var config = await BoardConfig.get();
-      Context contentContext = Context.create();
+      var contentContext = Context.create();
       contentContext.variables = Map.from(config);
       contentContext.variables['content'] = contentName;
 
@@ -84,13 +84,13 @@ class MarkdownHelper {
     var string = await rootBundle.loadString(filename);
 
     if (string.startsWith('---')) {
-      RegExp exp = RegExp(r"^---\s*$\r?\n", multiLine: true);
+      var exp = RegExp(r'^---\s*$\r?\n', multiLine: true);
       Match match = exp.firstMatch(string);
       if (match != null) {
-        String yamlStart = string.substring(match.end);
+        var yamlStart = string.substring(match.end);
         match = exp.firstMatch(yamlStart);
         if (match != null) {
-          String yamlString = yamlStart.substring(0, match.start);
+          var yamlString = yamlStart.substring(0, match.start);
           if (yamlString.isNotEmpty) {
             return Map.from(loadYaml(yamlString));
           }

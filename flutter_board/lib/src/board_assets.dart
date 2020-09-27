@@ -31,8 +31,7 @@ class BoardAssets with ListMixin<String> {
     var path = route.substring(0, slashPos + 1);
     var slug = route.substring(slashPos + 1);
     return _assets.firstWhere((element) {
-      RegExp exp =
-          RegExp("^(.*?)$path(\\d{4}-\\d{2}-\\d{2}-)?$slug(\\.[^.]+)?\$");
+      var exp = RegExp('^(.*?)$path(\\d{4}-\\d{2}-\\d{2}-)?$slug(\\.[^.]+)?\$');
       Match match = exp.firstMatch(element);
       return match != null;
     });
@@ -55,11 +54,11 @@ class BoardAssets with ListMixin<String> {
     var path = route.substring(0, slashPos + 1);
     var slug = route.substring(slashPos + 1);
     return _assets.firstWhere((element) {
-          RegExp exp =
-              RegExp("^(.*?)$path(\\d{4}-\\d{2}-\\d{2}-)?$slug(\\.[^.]+)?\$");
+          var exp =
+              RegExp('^(.*?)$path(\\d{4}-\\d{2}-\\d{2}-)?$slug(\\.[^.]+)?\$');
           Match match = exp.firstMatch(element);
           return match != null;
-        }, orElse: null) !=
+        }, orElse: () => null) !=
         null;
   }
 
@@ -80,13 +79,11 @@ class BoardAssets with ListMixin<String> {
 
   /// Creates or returns a singleton instance of assets manager.
   static Future<BoardAssets> get() async {
-    if (_instance == null) {
-      _instance = await _instanceMemo.runOnce(() async {
-        var instance = BoardAssets._internal();
-        instance._assets = await instance._load();
-        return instance;
-      });
-    }
+    _instance ??= await _instanceMemo.runOnce(() async {
+      var instance = BoardAssets._internal();
+      instance._assets = await instance._load();
+      return instance;
+    });
     return _instance;
   }
 }

@@ -19,14 +19,12 @@ class BoardContext {
 
   /// Creates or returns a singleton instance of a handle.
   static Future<BoardContext> get() async {
-    if (_instance == null) {
-      _instance = await _instanceMemo.runOnce(() async {
-        var instance = BoardContext._internal();
-        instance.config = await BoardConfig.get();
-        instance.assets = await BoardAssets.get();
-        return instance;
-      });
-    }
+    _instance ??= await _instanceMemo.runOnce(() async {
+      var instance = BoardContext._internal();
+      instance.config = await BoardConfig.get();
+      instance.assets = await BoardAssets.get();
+      return instance;
+    });
     return _instance;
   }
 }

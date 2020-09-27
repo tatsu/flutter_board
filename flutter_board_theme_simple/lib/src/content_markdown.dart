@@ -29,7 +29,7 @@ class ContentMarkdown extends StatelessWidget {
             onTapLink: (href) {
               const contentPath = 'resource:content';
               if (href.startsWith(contentPath)) {
-                String uri = href.substring(contentPath.length);
+                var uri = href.substring(contentPath.length);
                 Navigator.pushNamed(context, uri, arguments: pageArguments);
               } else {
                 launch(href);

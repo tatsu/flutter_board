@@ -7,12 +7,12 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sizeX = MediaQuery.of(context).size.width;
-    final TextStyle titleStyle = TextStyle(
+    final titleStyle = TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
       color: Colors.red[400],
     );
-    final TextStyle textStyle = TextStyle(
+    final textStyle = TextStyle(
       fontSize: 14,
       color: Colors.grey[700],
     );
