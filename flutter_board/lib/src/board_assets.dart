@@ -69,19 +69,20 @@ class BoardAssets with ListMixin<String> {
         null;
   }
 
-  Future<List<String>> _load() async {
+  Future<List<String>> _load({AssetBundle assetBundle}) async {
     var assets = <String>[];
-    var string = await rootBundle.loadString('AssetManifest.json');
+    var string =
+        await (assetBundle ?? rootBundle).loadString('AssetManifest.json');
     Map<String, dynamic> assetsMap = jsonDecode(string);
     assetsMap.keys.forEach(assets.add);
     return assets;
   }
 
   /// Creates or returns a singleton instance of assets manager.
-  static Future<BoardAssets> get() async {
+  static Future<BoardAssets> get({AssetBundle assetBundle}) async {
     _instance ??= await _instanceMemo.runOnce(() async {
       var instance = BoardAssets._internal();
-      instance._assets = await instance._load();
+      instance._assets = await instance._load(assetBundle: assetBundle);
       return instance;
     });
     return _instance;

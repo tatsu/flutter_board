@@ -8,7 +8,8 @@ import 'board_config.dart';
 /// Helper functions for markdown files.
 class MarkdownHelper {
   /// Gets markdown file variables.
-  static Future<Map<String, dynamic>> getFileVariables(String filename) async {
+  static Future<Map<String, dynamic>> getFileVariables(String filename,
+      {AssetBundle assetBundle}) async {
     var meta = <String, dynamic>{'filename': filename};
     var exp = RegExp(r'^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$');
     Match match = exp.firstMatch(filename);
@@ -17,7 +18,7 @@ class MarkdownHelper {
       meta['slug'] = match[2];
     }
     if (filename.endsWith('.md') || filename.endsWith('.markdown')) {
-      var header = await getMarkdownHeader(filename);
+      var header = await _getMarkdownHeader(filename, assetBundle: assetBundle);
       meta.addAll(header);
     }
 
@@ -26,13 +27,13 @@ class MarkdownHelper {
 
   /// Gets markdown file content.
   static Future<String> getMarkdown(String contentName,
-      {liquid = false}) async {
-    var assets = await BoardAssets.get();
+      {liquid = false, AssetBundle assetBundle}) async {
+    var assets = await BoardAssets.get(assetBundle: assetBundle);
 
     var filename = assets.getContentFilename(contentName);
     if (filename == null) return '';
 
-    var string = await rootBundle.loadString(filename);
+    var string = await (assetBundle ?? rootBundle).loadString(filename);
 
     if (string.startsWith('---')) {
       var exp = RegExp(r'^---\s*$\r?\n', multiLine: true);
@@ -50,18 +51,18 @@ class MarkdownHelper {
     }
 
     if (liquid) {
-      var config = await BoardConfig.get();
+      var config = await BoardConfig.get(assetBundle: assetBundle);
       var contentContext = Context.create();
       contentContext.variables = Map.from(config);
       contentContext.variables['content'] = contentName;
 
-      var meta = await getFileVariables(filename);
+      var meta = await getFileVariables(filename, assetBundle: assetBundle);
       contentContext.variables.addAll(meta);
 
       var filenames = assets.getContentFilenames(contentName);
       var files = <Map<String, dynamic>>[];
       for (var filename in filenames) {
-        var meta = await getFileVariables(filename);
+        var meta = await getFileVariables(filename, assetBundle: assetBundle);
         files.add(meta);
       }
       contentContext.variables['files'] = files;
@@ -73,15 +74,20 @@ class MarkdownHelper {
   }
 
   /// Get markdown file header yaml.
-  static Future<Map<String, dynamic>> getMarkdownHeader(
-      String contentName) async {
-    var assets = await BoardAssets.get();
+  static Future<Map<String, dynamic>> getMarkdownHeader(String contentName,
+      {AssetBundle assetBundle}) async {
+    var assets = await BoardAssets.get(assetBundle: assetBundle);
     if (!assets.isFile(contentName)) return {};
 
     var filename = assets.getContentFilename(contentName);
     if (filename == null) return {};
 
-    var string = await rootBundle.loadString(filename);
+    return _getMarkdownHeader(filename, assetBundle: assetBundle);
+  }
+
+  static Future<Map<String, dynamic>> _getMarkdownHeader(String filename,
+      {AssetBundle assetBundle}) async {
+    var string = await (assetBundle ?? rootBundle).loadString(filename);
 
     if (string.startsWith('---')) {
       var exp = RegExp(r'^---\s*$\r?\n', multiLine: true);
@@ -102,8 +108,9 @@ class MarkdownHelper {
   }
 
   /// Gets markdown file content rendered by Liquid.
-  static Future<String> getMarkdownLiquid(String contentName) async {
-    return getMarkdown(contentName, liquid: true);
+  static Future<String> getMarkdownLiquid(String contentName,
+      {AssetBundle assetBundle}) async {
+    return getMarkdown(contentName, liquid: true, assetBundle: assetBundle);
   }
 
   static String _parseLiquid(String source, Context context) {

@@ -1,4 +1,5 @@
 import 'package:async/async.dart';
+import 'package:flutter/services.dart';
 
 import 'board_assets.dart';
 import 'board_config.dart';
@@ -18,11 +19,11 @@ class BoardContext {
   BoardContext._internal();
 
   /// Creates or returns a singleton instance of a handle.
-  static Future<BoardContext> get() async {
+  static Future<BoardContext> get({AssetBundle assetBundle}) async {
     _instance ??= await _instanceMemo.runOnce(() async {
       var instance = BoardContext._internal();
-      instance.config = await BoardConfig.get();
-      instance.assets = await BoardAssets.get();
+      instance.config = await BoardConfig.get(assetBundle: assetBundle);
+      instance.assets = await BoardAssets.get(assetBundle: assetBundle);
       return instance;
     });
     return _instance;
