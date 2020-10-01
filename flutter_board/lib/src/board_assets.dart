@@ -34,7 +34,7 @@ class BoardAssets with ListMixin<String> {
       var exp = RegExp('^(.*?)$path(\\d{4}-\\d{2}-\\d{2}-)?$slug(\\.[^.]+)?\$');
       Match match = exp.firstMatch(element);
       return match != null;
-    });
+    }, orElse: () => null);
   }
 
   /// Returns content filenames in the route folder.
