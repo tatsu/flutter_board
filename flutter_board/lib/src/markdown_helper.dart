@@ -9,7 +9,7 @@ import 'board_config.dart';
 class MarkdownHelper {
   /// Gets markdown file variables.
   static Future<Map<String, dynamic>> getFileVariables(String filename) async {
-    var meta = {'filename': filename};
+    var meta = <String, dynamic>{'filename': filename};
     var exp = RegExp(r'^.*/(\d{4}-\d{2}-\d{2})-(.+?)(\.[^.]+)?$');
     Match match = exp.firstMatch(filename);
     if (match != null) {
@@ -92,7 +92,7 @@ class MarkdownHelper {
         if (match != null) {
           var yamlString = yamlStart.substring(0, match.start);
           if (yamlString.isNotEmpty) {
-            return Map.from(loadYaml(yamlString));
+            return Map<String, dynamic>.from(loadYaml(yamlString));
           }
         }
       }
