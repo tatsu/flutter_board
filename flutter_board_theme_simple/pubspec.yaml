@@ -1,8 +1,7 @@
 name: flutter_board_theme_simple
 description: A simple flutter_board theme.
 version: 0.0.1
-author:
-homepage:
+repository: https://github.com/tatsu/flutter_board
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -15,8 +14,7 @@ dependencies:
   yaml: ^2.2.1
   url_launcher: ^5.5.3
   flutter_markdown: ^0.4.4
-  flutter_board:
-    path: ../flutter_board
+  flutter_board: ^0.0.1
 
 
 dev_dependencies:

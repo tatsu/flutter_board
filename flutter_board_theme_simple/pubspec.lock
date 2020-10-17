@@ -107,9 +107,9 @@ packages:
   flutter_board:
     dependency: "direct main"
     description:
-      path: "../flutter_board"
-      relative: true
-    source: path
+      name: flutter_board
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.1"
   flutter_markdown:
     dependency: "direct main"
