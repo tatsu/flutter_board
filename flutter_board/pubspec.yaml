@@ -1,8 +1,7 @@
 name: flutter_board
 description: A simple blog-aware document based app engine in Flutter.
 version: 0.0.1
-author:
-homepage:
+repository: https://github.com/tatsu/flutter_board
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -11,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  async: ^2.4.2
   yaml: ^2.2.1
   markdown: ^2.1.8
   liquid_engine: ^0.1.2
